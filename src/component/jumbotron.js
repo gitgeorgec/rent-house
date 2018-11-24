@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import MainFrom from './mainform'
 import Calender from "../component/calender"
+import CalenderTwo from "../component/calenderTwo"
 class Jumbo extends Component {
 
 	render(){
@@ -18,7 +19,7 @@ class Jumbo extends Component {
 							<h2 className="text-center m-2">Select your start day</h2>
 							<Calender />
 							<h2 className="text-center m-2">Select your last day</h2>
-							<Calender />
+							<CalenderTwo />
 						</div>
 					</div>
 				</div>
