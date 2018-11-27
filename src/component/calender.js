@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
+import { setDate } from '../store/actions/date'
+
 const month_olympic = [31,29,31,30,31,30,31,31,30,31,30,31];
 const month_normal = [31,28,31,30,31,30,31,31,30,31,30,31];
 const monthName =["January","Febrary","March","April","May","June","July","Auguest","September","October","November","December"];
@@ -9,28 +12,24 @@ class Calender extends Component {
 		this.state={
 			showYear:"",
 			showMonth:"",
-			showDate:"",
 			today:"",
-			dateData:[]
+			dateData:[],
+			dataIndicate:0,
+			firstClick:true,
+			dataEnd:true
 		}
 	}
 
 	componentWillMount(){
 		let time = new Date()
+		let dates = this.addMonthDate(time.getFullYear(), time.getMonth())
 		this.setState({
 			showYear: time.getFullYear(),
 			showMonth: time.getMonth(),
 			showDate: time.getDate(),
-			today:time.getTime()
+			today:time.getTime(),
+			dateData:dates
 		})
-	}
-
-	componentDidMount(){
-		this.renderDate(this.state.showYear, this.state.showMonth)
-	}
-
-	componentWillUpdate(){
-		
 	}
 
 	getStartWeekDay(year, month){
@@ -50,65 +49,120 @@ class Calender extends Component {
 		return new Date(year,month,i)
 	}
 
-	renderDate(year, month, selectDay){
-    let totalDate = this.getMonthDate(year,month)
+	addMonthDate(year, month){
+		let arr = this.state.dateData.splice("")
+		let monthDate = this.getMonthDate(year,month)
 		let startDay = this.getStartWeekDay(year, month)
-		let leaveDay = 42-startDay-totalDate
-		let today = this.state.today
-		let arr=[]
+		let leaveDay = 42-startDay-monthDate
 		for(let i=0; i< startDay; i++){
-			arr.push(<div className="text-center" style={{width:"70px",color:"rgba(0,0,0,0)"}} key={i}>0</div>)
+			arr.push({year,month,monthDate:-1,select:false})
 		}
-		for(let i=0; i< totalDate; i++){
-			if(today<this.getdateTime(year, month,i)){
-				arr.push(
-				<div 
-					className="text-center rounded-circle pointer" 
-					style={{width:"70px",color:selectDay===i?"white":"black", background:selectDay===i?"#FE9000":"", transition:"0.2s"}}  
-					key={startDay+i} 
-					onClick={this.renderDate.bind(this,year,month,i)}
-				>
-					{i+1}
-				</div>)
-			} else {
-				arr.push(
-					<div 
-						className="text-center rounded-circle" 
-						style={{width:"70px",color:"gray"}}  
-						key={startDay+i} 
-					>
-						{i+1}
-					</div>)
-			}
+		for(let i=0; i<monthDate;i++){
+			arr.push({
+				year,
+				month,
+				monthDate:i,
+				time:this.getdateTime(year, month,i).getTime(),
+				select:false})
 		}
-
 		for(let i=0; i<leaveDay; i++){
-			arr.push(<div className="text-center" style={{width:"70px",color:"rgba(0,0,0,0)"}} key={totalDate+startDay+i}>00</div>)
+			arr.push({year,month,monthDate:-1,select:false})
 		}
-		this.setState({
-			showYear:year,
-			showMonth:month,
-			dateData:arr
-		})
+		return arr
 	}
 
-	handlePrev(){
-		this.state.showMonth>1?this.renderDate(this.state.showYear, this.state.showMonth-1):this.renderDate(this.state.showYear-1, 11)
+
+	createElem(idx){
+		let date = this.state.dateData
+		let startIdx = idx*42
+		let arr=[]
+		for(let i=startIdx;i<startIdx+42;i++){
+			if(date[i].monthDate+1!==0){
+				if(date[i].time<this.state.today){
+					arr.push(<div className="text-center" style={{width:"70px",color:"rgba(0,0,0,0.5)"}} key={i}>{date[i].monthDate+1}</div>)
+				}else{
+					arr.push(<div 
+					className="text-center pointer" 
+					style={{width:"70px",color:date[i].select?"white":"black", background:date[i].select?"#FE9000":"", transition:"0.2s"}}  
+					key={i}
+					data-time={date[i].time}
+					onClick={this.handleClick.bind(this)}
+					>
+						{date[i].monthDate+1}
+					</div>)
+				}
+			}else{
+				arr.push(<div className="text-center" style={{width:"70px",color:"rgba(0,0,0)"}} key={i}></div>)
+			}
+		}
+		return arr
 	}
 
 	handleNext(){
-		this.state.showMonth<11?this.renderDate(this.state.showYear, this.state.showMonth+1):this.renderDate(this.state.showYear+1, 0)
+		if(this.state.showMonth<11){
+			this.setState({
+				showMonth:this.state.showMonth+1,
+				dataIndicate:this.state.dataIndicate +1,
+				dateData:this.state.dateData.length/42-1 === this.state.dataIndicate?this.addMonthDate(this.state.showYear, this.state.showMonth+1):this.state.dateData
+			})
+		}else{
+			this.setState({
+				showYear:this.state.showYear +1,
+				showMonth:0,
+				dataIndicate:this.state.dataIndicate +1,
+				dateData:this.state.dateData.length/42-1 === this.state.dataIndicate?this.addMonthDate(this.state.showYear+1, 0):this.state.dateData
+			})
+		}
 	}
 
+	handlePrev(){
+		if(this.state.showMonth>0){
+			this.setState({
+				showMonth:this.state.showMonth-1,
+				dataIndicate:this.state.dataIndicate -1,
+			})
+		}else{
+			this.setState({
+				showYear:this.state.showYear -1,
+				showMonth:11,
+				dataIndicate:this.state.dataIndicate -1,
+			})
+		}
+	}
+
+	handleClick(e){
+		let selectData
+		if(this.state.firstClick){
+			selectData = this.state.dateData.map(i=>i.time === parseInt(e.target.dataset.time)?{...i, select:true}:{...i, select:false})
+		}else{
+			let beginDay = this.state.dateData.find(i=>i.select ===true)
+			if(e.target.dataset.time>beginDay.time){
+				selectData = this.state.dateData.map(i=>i.time >=beginDay.time&& i.time <=parseInt(e.target.dataset.time)?{...i, select:true}:{...i, select:false})
+			}else if(e.target.dataset.time<beginDay.time){
+				selectData = this.state.dateData.map(i=>i.time <=beginDay.time&& i.time >=parseInt(e.target.dataset.time)?{...i, select:true}:{...i, select:false})
+			}else{
+				selectData = this.state.dateData
+			}
+		}
+		this.props.setDate(selectData.filter(i=>i.select))
+		this.setState({
+			firstClick:!this.state.firstClick,
+			dateData:selectData
+		})
+	}
 
 	render() {
 		return (
 			<div className="shadow rounded">
 				<header>
 					<h3 className="text-center d-flex justify-content-between">
-						<span onClick={this.handlePrev.bind(this)} className="pointer" style={{color:"#094074"}}>
-							<i id="prev" className="fas fa-arrow-circle-left"></i>
-						</span>
+						{this.state.dataIndicate>0?
+							<span onClick={this.handlePrev.bind(this)} className="pointer" style={{color:"#094074"}}>
+									<i id="prev" className="fas fa-arrow-circle-left"></i>
+							</span>:
+							<span className="pointer" style={{color:"#094074"}}>
+									<i id="prev" className="fas fa-arrow-circle-left"></i>
+							</span>}
 						&nbsp;{this.state.showYear} {monthName[this.state.showMonth]}&nbsp;
 						<span onClick={this.handleNext.bind(this)}  className="pointer" style={{color:"#094074"}}>
 							<i id="next" className="fas fa-arrow-circle-right"></i>
@@ -125,16 +179,24 @@ class Calender extends Component {
 					<div className="badge badge-info">SUN</div>
 				</div>
 				<div className="col-12 d-flex flex-column">
-					<div className="d-flex justify-content-around">{this.state.dateData.filter((date,i)=>i<7)}</div>
-					<div className="d-flex justify-content-around">{this.state.dateData.filter((date,i)=>i>6&&i<14)}</div>
-					<div className="d-flex justify-content-around">{this.state.dateData.filter((date,i)=>i>13&&i<21)}</div>
-					<div className="d-flex justify-content-around">{this.state.dateData.filter((date,i)=>i>20&&i<28)}</div>
-					<div className="d-flex justify-content-around">{this.state.dateData.filter((date,i)=>i>27&&i<35)}</div>
-					<div className="d-flex justify-content-around">{this.state.dateData.filter((date,i)=>i>34&&i<42)}</div>
+					<div className="d-flex justify-content-around">{this.createElem(this.state.dataIndicate).filter((date,i)=>i<7)}</div>
+					<div className="d-flex justify-content-around">{this.createElem(this.state.dataIndicate).filter((date,i)=>i>6&&i<14)}</div>
+					<div className="d-flex justify-content-around">{this.createElem(this.state.dataIndicate).filter((date,i)=>i>13&&i<21)}</div>
+					<div className="d-flex justify-content-around">{this.createElem(this.state.dataIndicate).filter((date,i)=>i>20&&i<28)}</div>
+					<div className="d-flex justify-content-around">{this.createElem(this.state.dataIndicate).filter((date,i)=>i>27&&i<35)}</div>
+					<div className="d-flex justify-content-around">{this.createElem(this.state.dataIndicate).filter((date,i)=>i>34&&i<42)}</div>
 				</div>
 			</div>
 		);
 	}
 }
-    
-export default Calender;
+
+// function mapStateToProps(state) {
+// 	return {
+// 		date: state.date
+// 	}
+// }
+
+export default connect(null,{ setDate })(Calender);
+// export default connect(mapStateToProps,{ setDate })(Calender);
+// export default Calender

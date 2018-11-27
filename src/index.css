@@ -22,7 +22,7 @@ orange   #FE9000 */
 
 .pointer:hover{
   cursor: pointer;
-  transform: scale(1.05)
+  font-weight: bolder
 }
 
 
