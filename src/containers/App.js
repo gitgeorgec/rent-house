@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
-import Index from './container/index'
-import './boostrap.css';
-import './index.css'
+import Main from './Main'
 import { Provider} from 'react-redux'
-import store from "../src/store"
+import store from "../store"
+import { BrowserRouter as Router } from "react-router-dom"
+
 
 class App extends Component {
 
   render() {
     return (
       <Provider store={store}>
-        <React.Fragment>
-          <Index/>
-        </React.Fragment>
+        <Router>
+          <Main/>
+        </Router>
       </Provider>
     );
   }

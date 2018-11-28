@@ -1,8 +1,12 @@
 import { combineReducers } from "redux"
-import setDate from "./dateReducer"
+import currentUser from "./currentUser"
+import errors from "./errors"
+import date from "./dateReducer"
 
 const rootReducer = combineReducers({
-	date:setDate,
+	currentUser,
+	errors,
+	date,
 })
 
 export default rootReducer

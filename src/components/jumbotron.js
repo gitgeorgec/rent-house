@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import MainFrom from './mainform'
-import Calender from "../component/calender"
+import Calender from "../components/calender"
 class Jumbo extends Component {
 
 	render(){

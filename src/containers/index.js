@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
-import Jumbo from '../component/jumbotron'
-import Header from './header'
+import Jumbo from '../components/jumbotron'
 
 class Index extends Component {
 
   render() {
     return (
       <div className="position-relative">
-        <Header/>
 					<ul className="slideshow">
 						<li></li>
 						<li></li>
