@@ -25,6 +25,16 @@ orange   #FE9000 */
   font-weight: bolder
 }
 
+.card-background{
+  transition: 0.5s;
+  background-size:120%;
+  background-position: center;
+}
+
+.card:hover .card-background{
+  background-size:110% 
+}
+
 
 .slideshow { 
   position: absolute;

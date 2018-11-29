@@ -45,10 +45,6 @@ class Calender extends Component {
     }
 	}
 
-	getdateTime(year, month,i){
-		return new Date(year,month,i)
-	}
-
 	addMonthDate(year, month){
 		let arr = this.state.dateData.splice("")
 		let monthDate = this.getMonthDate(year,month)
@@ -62,7 +58,7 @@ class Calender extends Component {
 				year,
 				month,
 				monthDate:i,
-				time:this.getdateTime(year, month,i).getTime(),
+				time:new Date(year,month,i+1).getTime(),
 				select:false})
 		}
 		for(let i=0; i<leaveDay; i++){
@@ -70,7 +66,6 @@ class Calender extends Component {
 		}
 		return arr
 	}
-
 
 	createElem(idx){
 		let date = this.state.dateData
@@ -170,13 +165,13 @@ class Calender extends Component {
 					</h3>
 				</header>
 				<div className="col-12 d-flex justify-content-around">
+					<div className="badge badge-info">SUN</div>
 					<div className="badge badge-info">MON</div>
 					<div className="badge badge-info">TUE</div>
 					<div className="badge badge-info">WED</div>
 					<div className="badge badge-info">THU</div>
 					<div className="badge badge-info">FRI</div>
 					<div className="badge badge-info">SAT</div>
-					<div className="badge badge-info">SUN</div>
 				</div>
 				<div className="col-12 d-flex flex-column">
 					<div className="d-flex justify-content-around">{this.createElem(this.state.dataIndicate).filter((date,i)=>i<7)}</div>

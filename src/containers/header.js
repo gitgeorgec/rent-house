@@ -11,10 +11,10 @@ class Header extends Component {
             <nav className="navbar navbar-expand-lg navbar-light">
                 <NavLink className="navbar-brand" to="/">
                     <h2 style={{color:"#fff"}}><i className="fas fa-home"></i>Rent House</h2>
-                    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#Dropdown">
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
                 </NavLink>
+                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#Dropdown">
+                    <span className="navbar-toggler-icon"></span>
+                </button>
                 <Dropdown {...this.props} />
             </nav>
         </header>

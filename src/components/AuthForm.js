@@ -9,19 +9,18 @@ class AuthForm extends Component{
         password:"",
         profileImageUrl:""
     }
-    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  componentDidUpdate(){
-    console.log("updata")
-    console.log(this.state.email,this.state.password)
-    if(this.state.email==="test@test.com"&&this.state.password==="test"){
-      document.querySelector("button").click()
-    }
-  }
-
-  async handleSubmit(e){
-    
+  handleSubmit = e =>{
+    e.preventDefault()
+    const authType = this.props.signUp?"signup":"signin"
+    this.props.onAuth(authType,this.state)
+      .then(()=>{
+        this.props.history.push("/")
+      })
+      .catch(()=>{
+        return
+      })
   }
 
   handleChange = e =>{
@@ -30,25 +29,22 @@ class AuthForm extends Component{
     })
   }
 
-  handleTestLogin(){
-    this.setState({
-      email:"test@test.com",
-      username:"test",
-      password:"test",
-    })
-  }
-
   render(){
+    const {heading, errors, signUp, history, removeError} = this.props
+    history.listen(() => {
+      removeError()
+    })
     return (
       <React.Fragment>
-        <h1 className="text-center">{this.props.heading}</h1>
-        <form className="col-md-9 mx-auto col-sm-12" onSubmit={this.handleSubmit}>
+        <h1 className="text-center">{heading}</h1>
+        {errors.message && <div className="alert alert-danger">{errors.message}</div>}
+        <form className="col-md-9 mx-auto col-sm-12" onSubmit={this.handleSubmit.bind(this)}>
           <div className="form-group">
             <label htmlFor="Email">Email address</label>
             <input name="email" type="email" className="form-control" id="Email" placeholder="Enter email" onChange={this.handleChange} value={this.state.email}/>
             <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
           </div>
-          {this.props.signUp?"":
+          {!signUp?"":
           <React.Fragment>
             <div className="form-group">
               <label htmlFor="Username">username</label>

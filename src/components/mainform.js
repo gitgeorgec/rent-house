@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom'
 
 class MainForm extends Component {
 	constructor(props){
@@ -28,6 +29,7 @@ class MainForm extends Component {
 		console.log(e.target.firstDay.value)
 		console.log(e.target.lastDay.value)
 		console.log(e.target.distination.value)
+		this.props.history.push("/Houses")
 	}
 
 	render(){
@@ -90,4 +92,4 @@ function mapStateToProps(state) {
 }
 
 
-export default connect(mapStateToProps)(MainForm);
+export default withRouter(connect(mapStateToProps)(MainForm));
