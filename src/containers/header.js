@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Dropdown from '../components/dropdown.js'
+import Dropdown from '../components/Dropdown'
 import {NavLink} from 'react-router-dom';
 import { connect } from 'react-redux'
 

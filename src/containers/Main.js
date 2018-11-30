@@ -3,10 +3,11 @@ import {Switch, Route, withRouter} from 'react-router-dom'
 import { connect } from 'react-redux'
 import { authUser } from "../store/actions/auth"
 import { removeError } from '../store/actions/errors'
-import Index from './index'
-import AuthFrom from '../components/AuthForm'
-import Header from './header'
+import Index from './Index'
+import AuthForm from '../components/AuthForm'
+import Header from './Header'
 import Houses from './Houses'
+import PostForm from '../components/PostForm'
 
 const Main = props => {
     const { authUser, errors, removeError } = props
@@ -16,14 +17,15 @@ const Main = props => {
             <Switch>
                 <Route exact path="/" render={props=><Index {...props}/>} />
                 <Route exact path="/houses" render={props=><Houses {...props}/>} />
+                <Route exact path="/:id/post" render={props=><PostForm {...props}/>} />
                 <Route exact path="/signin" render={props=>{
                     return (
-                        <AuthFrom removeError={ removeError } errors={ errors } onAuth={ authUser } buttonText="Log in" heading="Welcome Back." {...props}/>
+                        <AuthForm removeError={ removeError } errors={ errors } onAuth={ authUser } buttonText="Log in" heading="Welcome Back." {...props}/>
                     )
                 }} />
                 <Route exact path="/signup" render={props=>{
                     return (
-                        <AuthFrom  removeError={ removeError } errors={ errors } onAuth={ authUser }  buttonText="sign up" heading="Join Today." signUp {...props}/>
+                        <AuthForm  removeError={ removeError } errors={ errors } onAuth={ authUser }  buttonText="sign up" heading="Join Today." signUp {...props}/>
                     )
                 }} />
             </Switch>
