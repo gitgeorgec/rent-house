@@ -3,6 +3,7 @@ import GoogleMapReact from 'google-map-react';
 import Marker from './Marker'
 
 const AnyReactComponent = ({ text }) => <div className="border">{text}</div>;
+// const google = window.google;
 
 class GoogleMap extends Component {
 	static defaultProps = {
@@ -18,25 +19,69 @@ class GoogleMap extends Component {
       center:{
 				lat:24.1333828,
 				lng:120.6611994
-			}
+			},
+			zoom:10
     }
 	}
 	
+	// componentDidMount(){
+	// 	this.initMap()
+	// }
+
+	// initMap() {
+	// 	let map =new google.maps.Map(document.getElementById('map'), {
+	// 		center: this.state.center,
+	// 		zoom: 15
+	// 	});
+	// 	let marker = new google.maps.Marker({
+	// 		position: this.state.center,
+	// 		map,
+	// 	});
+		
+	// 	let infowindow = new google.maps.InfoWindow({
+	// 		content: "secretMessage"
+	// 	});
+		
+	// 	let state = this.state
+	// 	let setState = this.setState.bind(this)
+
+	// 	map.addListener('click',function(e){
+	// 		console.log(e.latLng.lat())
+	// 		console.log(e.latLng.lng())
+	// 		setState({
+	// 			center:{
+	// 				lat:e.latLng.lat(),
+	// 				lng:e.latLng.lng()
+	// 			}
+	// 		})
+	// 	}.bind(this))
+		
+	// 	marker.addListener("click",function(){
+	// 		infowindow.open(marker.get('map'), marker);
+	// 		// map.setZoom(20);
+	// 		marker.position(state.center);
+	// 		console.log(marker.getPosition())
+	// 	})
+	// }
+
 	onClick = ({x, y, lat, lng, event}) => {
 		console.log(x, y, lat, lng, event)
 		this.setState({
-			center:{lat,lng}
+			center:{lat,lng},
 		})
 	}
 
+  // onChildMouseEnter(){
+	// 	this.setState({
+	// 		zoom:15
+	// 	})
+	// }
 
-  onChildMouseEnter(){
-
-	}
-
-	onChildMouseLeave(){
-
-	}
+	// onChildMouseLeave(){
+	// 	this.setState({
+	// 		zoom:10
+	// 	})
+	// }
 
   render() {
 		// const facilityPins = this.props.facilities.map((facility, i)=>{
@@ -49,15 +94,13 @@ class GoogleMap extends Component {
 
 
     return (
-      <div style={{ height: "50vh", width: '100%' }}>
+      <div style={{ height: "50vh", width: '100%' }} id="map">
         <GoogleMapReact
           bootstrapURLKeys={{ key:"AIzaSyAjQDTCdLCWo2JBZiosUYNEox7R92t_Ts4"}}
-          defaultCenter={{
-						lat: 25.0171194,
-						lng: 121.4710123
-					}}
-          defaultZoom={15}
-          // center={this.state.center}
+          defaultCenter={this.state.center}
+					defaultZoom={this.state.zoom}
+					zoom={this.state.zoom}
+          center={this.state.center}
 					onChildMouseEnter={this.onChildMouseEnter}
 					onChildMouseLeave={this.onChildMouseLeave}
 					onClick={this.onClick}
@@ -71,7 +114,7 @@ class GoogleMap extends Component {
 					<Marker
 					lat={this.state.center.lat}
 					lng={this.state.center.lng} 
-					text={"1"}
+					text={""}
 					/>
         </GoogleMapReact>
       </div>

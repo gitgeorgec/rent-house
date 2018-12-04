@@ -17,23 +17,18 @@ class Dropdown extends Component {
                 {this.props.currentUser.isAuthenticated?
                 <React.Fragment>
                     <li className="nav-item" style={{marginLeft:"1rem"}}>
-                        <NavLink exact className="nav-link" to="/">
-                        <i className="fas fa-home"></i> Home
+                        <NavLink exact className="nav-link" to={`/${this.props.currentUser.user.id}/house/new`}>
+                        <i className="fas fa-home"></i> Land House
                         </NavLink>
                     </li>
                     <li className="nav-item" style={{marginLeft:"1rem"}}>
-                        <NavLink exact className="nav-link" to="/search">
+                        <NavLink exact className="nav-link" to="/Houses">
                         <i className="fas fa-search"></i> Search
                         </NavLink>
                     </li>
                     <li className="nav-item" style={{marginLeft:"1rem"}}>
                         <NavLink exact className="nav-link" to="/user">
                         <i className="fas fa-user"></i> User
-                        </NavLink>
-                    </li>
-                    <li className="nav-item" style={{marginLeft:"1rem"}}>
-                        <NavLink exact className="nav-link" to="/about">
-                        <i className="fas fa-book"></i> About
                         </NavLink>
                     </li>
                     <li className="nav-item" style={{marginLeft:"1rem"}}>
@@ -51,6 +46,11 @@ class Dropdown extends Component {
                     <li className="nav-item" style={{marginLeft:"1rem"}}>
                         <NavLink exact className="nav-link" to="/signin">
                         <i className="fas fa-book"></i> signin
+                        </NavLink>
+                    </li>
+                    <li className="nav-item" style={{marginLeft:"1rem"}}>
+                        <NavLink exact className="nav-link" to="/about">
+                        <i className="fas fa-book"></i> About
                         </NavLink>
                     </li>
                 </React.Fragment>}

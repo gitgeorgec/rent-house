@@ -1,30 +1,48 @@
 import React, { Component } from 'react';
 import HouseCard from '../components/HouseCard'
-import firstImg from "../img/daniil-silantev-574966-unsplash.jpg"
-import secondImg from "../img/douglas-sheppard-522206-unsplash.jpg"
-import thirdImg from "../img/dan-gold-220226-unsplash.jpg"
-// import {NavLink} from 'react-router-dom';
 
 class PostList extends Component {
+    constructor(props){
+      super(props)
+      this.state = {
+        loading:true,
+        house:[]
+      }
+    }
+
+    componentWillMount(){
+      this.props.getHouse()
+      .then(()=>{
+        if(this.props.house.house){
+          console.log("set")
+          this.setState({
+            loading:false,
+            house:[...this.props.house.house]
+        })
+      }
+      })
+    }
+
     render() {
-      const houseList = ()=>{
-        let arr =[]
-        for(let i = 0; i<17; i++){
-            if(i%4===0){
-              arr.push(<HouseCard key={i} name="house" address="taipei" price="100" owner="Jack" image={firstImg}/>)
-            }else if(i%3===0){
-              arr.push(<HouseCard key={i} name="house" address="taipei" price="100" owner="Jack" image={secondImg}/>)
-            }else{ 
-              arr.push(<HouseCard key={i} name="house" address="taipei" price="100" owner="Jack" image={thirdImg}/>)
-            }
-          }
+      const houseList = (houses)=>{
+        let arr=[]
+        arr = houses.map((house,i)=>{
+          return <HouseCard 
+            key={i}
+            name={house.name} 
+            address={house.address} 
+            price={house.price} 
+            owner={house.owner.username}
+            image={house.image}/>
+        })
         return arr
       }
       return (
         <div className="container m-3 mx-auto">
+        <h1>All Houses</h1>
         <div className="row">
           <div className="card-columns">
-            {houseList()}
+            {this.state.loading?"loading":houseList(this.state.house)}
           </div>
         </div>
       </div>

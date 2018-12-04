@@ -15,8 +15,8 @@ class AuthForm extends Component{
     e.preventDefault()
     const authType = this.props.signUp?"signup":"signin"
     this.props.onAuth(authType,this.state)
-      .then(()=>{
-        this.props.history.push("/")
+      .then((res)=>{
+        if(res.username)this.props.history.push("/")
       })
       .catch(()=>{
         return

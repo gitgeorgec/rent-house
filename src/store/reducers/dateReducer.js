@@ -1,6 +1,6 @@
 import { SET_DATE } from '../actionTypes'
 
-export default function setDate(state = [], action){
+export default function setDate(state =[], action){
     switch(action.type){
         case SET_DATE:
             return action.date

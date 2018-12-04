@@ -9,7 +9,6 @@ export function setDefaultToken(token){
 }
 
 export function apiCall(method, path, data, token=defaultToken){
-    console.log(defaultToken)
         return fetch(path,{
                 method,
                 headers: {

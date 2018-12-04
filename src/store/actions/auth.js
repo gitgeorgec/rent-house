@@ -29,10 +29,15 @@ export function authUser(type, userData){
             setAuthorizationToken(token)
             dispatch(setCurrentUser(user))
             dispatch(removeError())
+            return user
         })
         .catch(err=>{
             console.log(err)
             return dispatch(addError(err.error.message))
         })
     }
+}
+
+export function checkAuth(id){
+    return apiCall("get",`http://localhost:8081/${id}`)
 }

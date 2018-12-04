@@ -34,7 +34,9 @@ export default class MyGreatPlaceWithHover extends Component {
     const style = this.props.$hover ? greatPlaceStyleHover : greatPlaceStyle;
 
     return (
-       <div style={style}>
+       <div style={{position:"relative"}}>
+        <div className="pin1"></div>
+        {this.props.$hover?<div style={style}>hover</div>:null}
           {this.props.text}
        </div>
     );
