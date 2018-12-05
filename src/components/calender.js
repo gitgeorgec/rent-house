@@ -50,16 +50,18 @@ class Calender extends Component {
 		let monthDate = this.getMonthDate(year,month)
 		let startDay = this.getStartWeekDay(year, month)
 		let leaveDay = 42-startDay-monthDate
+		let selectedDateTime = this.props.date.map(date=>date.time)
 		for(let i=0; i< startDay; i++){
 			arr.push({year,month,monthDate:-1,select:false})
 		}
 		for(let i=0; i<monthDate;i++){
+			let time = new Date(year,month,i+1).getTime()
 			arr.push({
 				year,
 				month,
 				monthDate:i,
 				time:new Date(year,month,i+1).getTime(),
-				select:false})
+				select:selectedDateTime.indexOf(time)<0?false:true})
 		}
 		for(let i=0; i<leaveDay; i++){
 			arr.push({year,month,monthDate:-1,select:false})
@@ -186,12 +188,12 @@ class Calender extends Component {
 	}
 }
 
-// function mapStateToProps(state) {
-// 	return {
-// 		date: state.date
-// 	}
-// }
+function mapStateToProps(state) {
+	return {
+		date: state.date
+	}
+}
 
-export default connect(null,{ setDate })(Calender);
+export default connect(mapStateToProps,{ setDate })(Calender);
 // export default connect(mapStateToProps,{ setDate })(Calender);
 // export default Calender

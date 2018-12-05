@@ -18,12 +18,12 @@ class Dropdown extends Component {
                 <React.Fragment>
                     <li className="nav-item" style={{marginLeft:"1rem"}}>
                         <NavLink exact className="nav-link" to={`/${this.props.currentUser.user.id}/house/new`}>
-                        <i className="fas fa-home"></i> Land House
+                        <i className="fas fa-home"></i> Land
                         </NavLink>
                     </li>
                     <li className="nav-item" style={{marginLeft:"1rem"}}>
                         <NavLink exact className="nav-link" to="/Houses">
-                        <i className="fas fa-search"></i> Search
+                        <i className="fas fa-search"></i> Rent
                         </NavLink>
                     </li>
                     <li className="nav-item" style={{marginLeft:"1rem"}}>

@@ -6,18 +6,18 @@ class PostList extends Component {
       super(props)
       this.state = {
         loading:true,
-        house:[]
+        houses:[]
       }
     }
 
     componentWillMount(){
       this.props.getHouse()
       .then(()=>{
-        if(this.props.house.house){
-          console.log("set")
+        console.log(this.props.date)
+        if(this.props.houses){
           this.setState({
             loading:false,
-            house:[...this.props.house.house]
+            houses:[...this.props.houses]
         })
       }
       })
@@ -33,6 +33,7 @@ class PostList extends Component {
             address={house.address} 
             price={house.price} 
             owner={house.owner.username}
+            ownerImg={house.owner.image}
             image={house.image}/>
         })
         return arr
@@ -42,7 +43,7 @@ class PostList extends Component {
         <h1>All Houses</h1>
         <div className="row">
           <div className="card-columns">
-            {this.state.loading?"loading":houseList(this.state.house)}
+            {this.state.loading?"loading":houseList(this.state.houses)}
           </div>
         </div>
       </div>

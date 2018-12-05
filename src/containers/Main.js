@@ -11,7 +11,7 @@ import Houses from './Houses'
 import PostForm from '../components/PostForm'
 
 const Main = props => {
-    const { authUser, errors, removeError, addHouse, getHouse, currentUser, house} = props
+    const { authUser, errors, removeError, addHouse, getHouse, currentUser, houses, date} = props
     return (
         <React.Fragment>
             <Header  currentUser ={ currentUser }/>
@@ -19,12 +19,12 @@ const Main = props => {
                 <Route exact path="/" render={props=><Index {...props}/>}/>
                 <Route exact path="/houses" render={props=>{
                     return (
-                        <Houses getHouse = {getHouse} house = {house} {...props}/>
+                        <Houses date={date} getHouse = {getHouse} houses = {houses} {...props}/>
                     )
                 }}/>
                 <Route exact path="/:id/house/new" render={props=>{
                     return (
-                        <PostForm currentUser ={ currentUser } addHouse={ addHouse } {...props}/>
+                        <PostForm date={date} currentUser ={ currentUser } addHouse={ addHouse } {...props}/>
                     )
                 }}/>
                 <Route exact path="/signin" render={props=>{
@@ -46,7 +46,8 @@ function mapStateToProps(state){
     return {
         currentUser: state.currentUser,
         errors: state.errors,
-        house: state.house
+        houses: state.houses,
+        date: state.date
     }
 }
 

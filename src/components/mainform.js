@@ -1,34 +1,57 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
+import { sendSearch } from "../store/actions/search"
 
 class MainForm extends Component {
 	constructor(props){
 		super(props)
 		this.state={
+			adult:1,
+			child:0,
+			distination:"",
 			begin:"",
 			end:""
 		}
 	}
 
-	componentWillReceiveProps(nextProps){
+	// componentWillReceiveProps(nextProps){
+	// 	if(nextProps.date[0]){
+	// 		let firstDay = nextProps.date[0]
+	// 		let lastDay = nextProps.date[nextProps.date.length-1]
+	// 		this.setState({
+	// 			begin:`${firstDay.year}-${Math.floor((firstDay.month+1)/10)}${(firstDay.month+1)%10}-${Math.floor((firstDay.monthDate+1)/10)}${(firstDay.monthDate+1)%10}`,
+	// 			end:`${lastDay.year}-${Math.floor((lastDay.month+1)/10)}${(lastDay.month+1)%10}-${Math.floor((lastDay.monthDate+1)/10)}${(lastDay.monthDate+1)%10}`
+	// 		})
+	// 	}
+	// }
+
+	static getDerivedStateFromProps(nextProps){
 		if(nextProps.date[0]){
 			let firstDay = nextProps.date[0]
 			let lastDay = nextProps.date[nextProps.date.length-1]
-			this.setState({
-				begin:`${firstDay.year}-${Math.floor((firstDay.month+1)/10)}${(firstDay.month+1)%10}-${Math.floor((firstDay.monthDate+1)/10)}${(firstDay.monthDate+1)%10}`,
-				end:`${lastDay.year}-${Math.floor((lastDay.month+1)/10)}${(lastDay.month+1)%10}-${Math.floor((lastDay.monthDate+1)/10)}${(lastDay.monthDate+1)%10}`
-			})
+        return{
+			begin:`${firstDay.year}-${Math.floor((firstDay.month+1)/10)}${(firstDay.month+1)%10}-${Math.floor((firstDay.monthDate+1)/10)}${(firstDay.monthDate+1)%10}`,
+			end:`${lastDay.year}-${Math.floor((lastDay.month+1)/10)}${(lastDay.month+1)%10}-${Math.floor((lastDay.monthDate+1)/10)}${(lastDay.monthDate+1)%10}`
+		}}else{
+			return null
 		}
-	}
+    }
+
+    handleChange = (e) => {
+        this.setState({
+            [e.target.name]:e.target.value
+        })
+    }
 
 	handleSubmit(e){
 		e.preventDefault()
-		console.log(e.target.adult.value)
-		console.log(e.target.child.value)
-		console.log(e.target.firstDay.value)
-		console.log(e.target.lastDay.value)
-		console.log(e.target.distination.value)
+		if(this.state.begin===this.state.end){
+			alert("please select last day")
+			return
+		}
+		console.log({...this.state})
+		this.props.sendSearch({...this.state})
 		this.props.history.push("/Houses")
 	}
 
@@ -40,7 +63,7 @@ class MainForm extends Component {
 				<div className="form-row">
 					<div className="form-group col-6">
 						<label htmlFor="adultNum">Adult</label>
-						<select className="form-control" id="adultNum" name="adult">
+						<select className="form-control" id="adultNum" name="adult" onChange={this.handleChange}>
 							<option>1</option>
 							<option>2</option>
 							<option>3</option>
@@ -51,7 +74,7 @@ class MainForm extends Component {
 					</div>
 					<div className="form-group col-6">
 						<label htmlFor="childrenNum">Child</label>
-						<select className="form-control" id="childrenNum" name="child">
+						<select className="form-control" id="childrenNum" name="child" onChange={this.handleChange}>
 							<option>0</option>
 							<option>1</option>
 							<option>2</option>
@@ -75,7 +98,7 @@ class MainForm extends Component {
 				<div className="form-row">
 					<div className="form-group col-md-12">
 						<label htmlFor="inputCity">distination</label>
-						<input type="text" className="form-control" name="distination" id="inputCity"/>
+						<input type="text" className="form-control" name="distination" id="inputCity" onChange={this.handleChange}/>
 					</div>
 				</div>
 				<button type="submit" className="btn btn-primary col-12">Find House</button>
@@ -92,4 +115,4 @@ function mapStateToProps(state) {
 }
 
 
-export default withRouter(connect(mapStateToProps)(MainForm));
+export default withRouter(connect(mapStateToProps,{sendSearch})(MainForm));
