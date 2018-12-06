@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import FacebookButton from './Facebook'
 
 class AuthForm extends Component{
   constructor(props){
@@ -35,7 +36,7 @@ class AuthForm extends Component{
       removeError()
     })
     return (
-      <React.Fragment>
+      <div className="col-md-6 mx-auto">
         <h1 className="text-center">{heading}</h1>
         {errors.message && <div className="alert alert-danger">{errors.message}</div>}
         <form className="col-md-9 mx-auto col-sm-12" onSubmit={this.handleSubmit.bind(this)}>
@@ -63,8 +64,11 @@ class AuthForm extends Component{
           <div className="form-group">
             <button type="submit" className="btn btn-primary form-control">Submit</button>
           </div>
+          <div className="form-group">
+            <FacebookButton facebookAuth={this.props.facebookAuth}/>
+          </div>
         </form>
-      </React.Fragment>
+      </div>
     )
   }
 }
