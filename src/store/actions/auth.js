@@ -1,7 +1,8 @@
 import { apiCall, setDefaultToken} from "../../service/api"
 import { SET_CURRENT_USER } from  "../actionTypes" 
 import { addError, removeError } from './errors'
-
+const URL = "https://mighty-waters-27861.herokuapp.com/"
+// const URL = "http://localhost:8081/"
 export function setCurrentUser(user){
     return {
         type: SET_CURRENT_USER,
@@ -23,7 +24,7 @@ export function logout(){
 
 export function authUser(type, userData){
     return dispatch => {
-        return apiCall("post",`http://localhost:8081/api/auth/${type}`,userData)
+        return apiCall("post",`${URL}api/auth/${type}`,userData)
         .then(({token, ...user})=>{
             localStorage.setItem("jwtToken", token);
             setAuthorizationToken(token)
