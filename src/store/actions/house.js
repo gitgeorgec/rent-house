@@ -14,22 +14,31 @@ export const deleteHouse = houseId =>({
     houseId
 })
 
-export const getHouse = (houseId="") => (disptch) =>{
-    return apiCall("get", `${URL}api/house/${houseId}`)
+export const getHouse = (houseId="",query="") => (dispatch) =>{
+    let search =""
+    if(houseId)search = houseId
+    if(query.adult){
+        
+        search = `?search=1&address=${query.distination}&accommodate=${query.adult+query.child}&date=${query.date.join(",")}`
+        console.log(search)
+    }
+    return apiCall("get", `${URL}api/house/${search}`)
         .then(houses=>{
-            disptch(loadHosues(houses))
+            dispatch(loadHosues(houses))
         })
         .catch(err=>{
-            disptch(addError(err.message))
+            return dispatch(addError(err.error.message))
         })
 }
 
 
-export const addHouse = (houseData, userId) => (disptch) =>{
+export const addHouse = (houseData, userId) => (dispatch) =>{
     return apiCall("post",`${URL}api/user/${userId}/house/new`, houseData)
         .then(house=>{
-            console.log(house)
-            disptch(loadHosues(house))
+            dispatch(loadHosues(house))
+            return house
         })
-        .catch(err=>disptch(addError(err.message)))
+        .catch(err=>{
+            return dispatch(addError(err.error.message))
+        })
 }

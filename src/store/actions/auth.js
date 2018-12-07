@@ -55,7 +55,11 @@ export function facebookAuth(userData){
         })
         .catch(err=>{
             console.log(err)
-            return dispatch(addError(err.error.message))
+            if(err.error.message){
+                return dispatch(addError(err.error.message))
+            }else {
+                return dispatch(addError(err))
+            }
         })
     }
 }

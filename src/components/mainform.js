@@ -14,7 +14,13 @@ class MainForm extends Component {
 			end:""
 		}
 	}
-
+	componentDidMount(){
+		this.setState({
+			adult:this.props.search.adult,
+			child:this.props.search.child,
+			distination:this.props.search.distination?this.props.search.distination:""
+		})
+	}
 	// componentWillReceiveProps(nextProps){
 	// 	if(nextProps.date[0]){
 	// 		let firstDay = nextProps.date[0]
@@ -28,11 +34,11 @@ class MainForm extends Component {
 
 	static getDerivedStateFromProps(nextProps){
 		if(nextProps.date[0]){
-			let firstDay = nextProps.date[0]
-			let lastDay = nextProps.date[nextProps.date.length-1]
+			let firstDay = new Date(nextProps.date[0])
+			let lastDay = new Date(nextProps.date[nextProps.date.length-1])
         return{
-			begin:`${firstDay.year}-${Math.floor((firstDay.month+1)/10)}${(firstDay.month+1)%10}-${Math.floor((firstDay.monthDate+1)/10)}${(firstDay.monthDate+1)%10}`,
-			end:`${lastDay.year}-${Math.floor((lastDay.month+1)/10)}${(lastDay.month+1)%10}-${Math.floor((lastDay.monthDate+1)/10)}${(lastDay.monthDate+1)%10}`
+			begin:`${firstDay.getFullYear()}-${Math.floor((firstDay.getMonth()+1)/10)}${(firstDay.getMonth()+1)%10}-${Math.floor((firstDay.getDate())/10)}${(firstDay.getDate())%10}`,
+			end:`${lastDay.getFullYear()}-${Math.floor((lastDay.getMonth()+1)/10)}${(lastDay.getMonth()+1)%10}-${Math.floor((lastDay.getDate())/10)}${(lastDay.getDate())%10}`
 		}}else{
 			return null
 		}
@@ -46,13 +52,13 @@ class MainForm extends Component {
 
 	handleSubmit(e){
 		e.preventDefault()
-		if(this.state.begin===this.state.end){
-			alert("please select last day")
-			return
-		}
+		// if(this.state.begin===this.state.end){
+		// 	alert("please select last day")
+		// 	return
+		// }
 		console.log({...this.state})
 		this.props.sendSearch({...this.state})
-		this.props.history.push("/Houses")
+		if(this.props.location.pathname !== "/Houses")this.props.history.push("/Houses")
 	}
 
 	render(){
@@ -63,7 +69,7 @@ class MainForm extends Component {
 				<div className="form-row">
 					<div className="form-group col-6">
 						<label htmlFor="adultNum">Adult</label>
-						<select className="form-control" id="adultNum" name="adult" onChange={this.handleChange}>
+						<select className="form-control" id="adultNum" name="adult" onChange={this.handleChange} value={this.state.adult}>
 							<option>1</option>
 							<option>2</option>
 							<option>3</option>
@@ -98,7 +104,7 @@ class MainForm extends Component {
 				<div className="form-row">
 					<div className="form-group col-md-12">
 						<label htmlFor="inputCity">distination</label>
-						<input type="text" className="form-control" name="distination" id="inputCity" onChange={this.handleChange}/>
+						<input type="text" className="form-control" name="distination" id="inputCity" onChange={this.handleChange} value={this.state.distination}/>
 					</div>
 				</div>
 				<button type="submit" className="btn btn-primary col-12">Find House</button>
@@ -111,6 +117,7 @@ class MainForm extends Component {
 function mapStateToProps(state) {
 	return {
 		date: state.date,
+		search: state.search
 	}
 }
 

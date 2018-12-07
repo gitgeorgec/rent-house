@@ -30,6 +30,15 @@ class AuthForm extends Component{
     })
   }
 
+  style={
+    fontWeight: "700",
+    fontSize: "calc(.27548vw + 12.71074px)",
+    display: "inline-block",
+    textTransform: "uppercase",
+    height:"3rem",
+    padding:0
+  }
+
   render(){
     const {heading, errors, signUp, history, removeError} = this.props
     history.listen(() => {
@@ -62,10 +71,10 @@ class AuthForm extends Component{
             <input name="password" type="password" className="form-control" id="Password" placeholder="Password" onChange={this.handleChange} value={this.state.password}/>
           </div>
           <div className="form-group">
-            <button type="submit" className="btn btn-primary form-control">Submit</button>
+            <button type="submit" className="btn btn-success form-control" style={this.style}>Submit</button>
           </div>
           <div className="form-group">
-            <FacebookButton facebookAuth={this.props.facebookAuth}/>
+            <FacebookButton text={this.props.signUp?"signUp":"login"} facebookAuth={this.props.facebookAuth} history={ this.props.history } />
           </div>
         </form>
       </div>

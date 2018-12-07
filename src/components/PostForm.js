@@ -27,9 +27,10 @@ class Post extends Component {
         e.preventDefault()
         const userId = this.props.currentUser.user.id
         let house = {...this.state}
-        console.log(house)
         this.props.addHouse(house,userId)
-        .then(this.props.history.push("/Houses"))
+        .then(res=>{
+            if(res.name)this.props.history.push("/Houses")
+        })
     }
 
     handleChange = (e) => {
@@ -39,8 +40,13 @@ class Post extends Component {
     }
 
 	render(){
+        const {errors, history, removeError} = this.props
+        history.listen(() => {
+            removeError()
+          })
 		return(
             <div className="container">
+            {errors.message && <div className="alert alert-danger">{errors.message}</div>}
                 <h1>Post House</h1>
                 <div className="row">
                     <form className="col-12 border shadow row" onSubmit={this.handleSubmit}>

@@ -16,7 +16,6 @@ class Calender extends Component {
 			dateData:[],
 			dataIndicate:0,
 			firstClick:true,
-			dataEnd:true
 		}
 	}
 
@@ -50,7 +49,7 @@ class Calender extends Component {
 		let monthDate = this.getMonthDate(year,month)
 		let startDay = this.getStartWeekDay(year, month)
 		let leaveDay = 42-startDay-monthDate
-		let selectedDateTime = this.props.date.map(date=>date.time)
+		let selectedDateTime = this.props.date
 		for(let i=0; i< startDay; i++){
 			arr.push({year,month,monthDate:-1,select:false})
 		}
@@ -141,7 +140,7 @@ class Calender extends Component {
 				selectData = this.state.dateData
 			}
 		}
-		this.props.setDate(selectData.filter(i=>i.select))
+		this.props.setDate(selectData.filter(i=>i.select).map(i=>i.time))
 		this.setState({
 			firstClick:!this.state.firstClick,
 			dateData:selectData

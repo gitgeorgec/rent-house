@@ -1,28 +1,39 @@
 import React, { Component } from 'react';
 import HouseCard from '../components/HouseCard'
-
-class PostList extends Component {
+import MainForm from '../components/Mainform'
+class Houses extends Component {
     constructor(props){
       super(props)
       this.state = {
         loading:true,
-        houses:[]
+        houses:[],
+        search:{}
       }
     }
 
-    componentWillMount(){
-      this.props.getHouse()
+    
+    componentDidMount(){
+      this.props.getHouse("",{...this.props.search, date:[...this.props.date]})
       .then(()=>{
-        console.log(this.props.date)
         if(this.props.houses){
           this.setState({
             loading:false,
-            houses:[...this.props.houses]
-        })
-      }
+            houses:[...this.props.houses],
+            search: this.props.search
+          })
+        }
       })
     }
 
+    static getDerivedStateFromProps(nextProps, prevState){
+      if(JSON.stringify(prevState.search)===JSON.stringify(nextProps.search)){
+        console.log("equal")
+      }else{
+        console.log("not equal")
+      }
+      return null
+  }
+    
     render() {
       const houseList = (houses)=>{
         let arr=[]
@@ -40,15 +51,20 @@ class PostList extends Component {
       }
       return (
         <div className="container m-3 mx-auto">
-        <h1>All Houses</h1>
-        <div className="row">
-          <div className="card-columns">
-            {this.state.loading?"loading":houseList(this.state.houses)}
+        <h1>distination: {this.props.search.distination}</h1> 
+          <MainForm {...this.props}/>
+          <h1 className="text-center">Found Houses</h1>
+          <hr/>
+          <div className="row">
+            <div className="card-columns">
+              {JSON.stringify(this.state.search)===JSON.stringify(this.props.search)?<div>not same</div>:<div>same</div> }
+              {this.state.loading?<h3 className="text-center">loading</h3>:houseList(this.state.houses)}
+              {!this.state.loading&&this.state.houses.length === 0?<div className="text-center">not found</div>:""}
+            </div>
           </div>
         </div>
-      </div>
       );
     }
   }
   
-  export default PostList;
+  export default Houses;
