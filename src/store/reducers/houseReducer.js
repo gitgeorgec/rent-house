@@ -1,12 +1,18 @@
-import { LOAD_HOUSES, DELETE_HOUSE } from "../actionTypes"
+import { LOAD_HOUSES, DELETE_HOUSE, LOADING } from "../actionTypes"
 
-const houses = (state= [], action) => {
+const houses = (state= {data:[],loading:false, select:{}}, action) => {
     switch (action.type) {
+        case LOADING:
+            return {data:[],loading:true}
         case LOAD_HOUSES:
-            return action.houses
+            return {
+                data:action.houses,
+                loading:false
+            }
         case DELETE_HOUSE:
             return {
-                houses:state.filter(house => house._id !== action.id)
+                houses:state.filter(house => house._id !== action.id),
+                loading:false
             }
         default:
             return state;

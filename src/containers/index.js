@@ -1,5 +1,5 @@
 import React from 'react';
-import Jumbo from '../components/Jumbotron'
+import Jumbo from './Jumbotron'
 import Card from '../components/Card'
 import NewYorkImg from "../img/tuan-nguyen-1176823-unsplash.jpg"
 import LondonImg from "../img/luca-micheli-422053-unsplash.jpg"

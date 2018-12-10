@@ -4,14 +4,16 @@ import { connect } from 'react-redux'
 import { authUser, facebookAuth } from "../store/actions/auth"
 import { addHouse, getHouse } from "../store/actions/house"
 import { removeError } from '../store/actions/errors'
+import { sendOrderRequset } from '../store/actions/order'
 import Index from './Index'
 import AuthForm from '../components/AuthForm'
 import Header from './Header'
 import Houses from './Houses'
 import PostForm from '../components/PostForm'
+import OrderForm from '../components/OrderFrom'
 
 const Main = props => {
-    const { authUser,facebookAuth, errors, removeError, addHouse, getHouse, currentUser, houses, date, search} = props
+    const { authUser,facebookAuth, errors, removeError, addHouse, getHouse, currentUser, houses, date, search, select, sendOrderRequset} = props
     return (
         <React.Fragment>
             <Header  currentUser ={ currentUser }/>
@@ -43,6 +45,19 @@ const Main = props => {
                         <AuthForm  removeError={ removeError } errors={ errors } onAuth={ authUser } facebookAuth={ facebookAuth } buttonText="sign up" heading="Join Today." signUp {...props}/>
                     )
                 }} />
+                <Route exact path="/houses/order" render={props=>{
+                    if(currentUser.isAuthenticated){
+                        if(select.length>0){
+                            return (
+                               <OrderForm date={ date } removeError={ removeError } errors={ errors } currentUser={ currentUser }  select={ select } sendOrderRequset={ sendOrderRequset } {...props}/>
+                           )
+                        }else{
+                            return (<Redirect to="/houses"/>)
+                        }
+                    }else{
+                        return (<Redirect to="/signin"/>)
+                    }
+                }} /> 
             </Switch>
         </React.Fragment>          
     )
@@ -54,8 +69,9 @@ function mapStateToProps(state){
         errors: state.errors,
         houses: state.houses,
         date: state.date,
-        search: state.search
+        search: state.search,
+        select: state.select
     }
 }
 
-export default withRouter(connect(mapStateToProps, { authUser,facebookAuth ,removeError, addHouse, getHouse})(Main))
+export default withRouter(connect(mapStateToProps, { authUser,facebookAuth ,removeError, addHouse, getHouse, sendOrderRequset})(Main))

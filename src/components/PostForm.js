@@ -19,14 +19,14 @@ class Post extends Component {
     // UNSAFE_componentWillReceiveProps(nextProps){
     //     this.setState({available:nextProps.date})
     // }
-    static getDerivedStateFromProps(nextProps){
-        return {availableDate:nextProps.date}
-    }
+    // static getDerivedStateFromProps(nextProps){
+    //     return {availableDate:nextProps.date}
+    // }
 
     handleSubmit = (e) => {
         e.preventDefault()
         const userId = this.props.currentUser.user.id
-        let house = {...this.state}
+        let house = {...this.state, availableDate: this.props.date}
         this.props.addHouse(house,userId)
         .then(res=>{
             if(res.name)this.props.history.push("/Houses")

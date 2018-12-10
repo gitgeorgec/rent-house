@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import MainFrom from './Mainform'
-import Calender from "./Calender"
+import MainFrom from '../components/Mainform'
+import Calender from "../components/Calender"
 
 class Jumbo extends Component {
 

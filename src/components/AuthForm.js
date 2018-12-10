@@ -17,7 +17,7 @@ class AuthForm extends Component{
     const authType = this.props.signUp?"signup":"signin"
     this.props.onAuth(authType,this.state)
       .then((res)=>{
-        if(res.username)this.props.history.push("/")
+        if(res.username)this.props.history.goBack()
       })
       .catch(()=>{
         return

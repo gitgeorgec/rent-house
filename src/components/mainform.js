@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
 import { sendSearch } from "../store/actions/search"
+import { getHouse } from "../store/actions/house"
 
 class MainForm extends Component {
 	constructor(props){
@@ -36,11 +37,15 @@ class MainForm extends Component {
 		if(nextProps.date[0]){
 			let firstDay = new Date(nextProps.date[0])
 			let lastDay = new Date(nextProps.date[nextProps.date.length-1])
-        return{
-			begin:`${firstDay.getFullYear()}-${Math.floor((firstDay.getMonth()+1)/10)}${(firstDay.getMonth()+1)%10}-${Math.floor((firstDay.getDate())/10)}${(firstDay.getDate())%10}`,
-			end:`${lastDay.getFullYear()}-${Math.floor((lastDay.getMonth()+1)/10)}${(lastDay.getMonth()+1)%10}-${Math.floor((lastDay.getDate())/10)}${(lastDay.getDate())%10}`
-		}}else{
-			return null
+			return{
+				begin:`${firstDay.getFullYear()}-${Math.floor((firstDay.getMonth()+1)/10)}${(firstDay.getMonth()+1)%10}-${Math.floor((firstDay.getDate())/10)}${(firstDay.getDate())%10}`,
+				end:`${lastDay.getFullYear()}-${Math.floor((lastDay.getMonth()+1)/10)}${(lastDay.getMonth()+1)%10}-${Math.floor((lastDay.getDate())/10)}${(lastDay.getDate())%10}`
+			}
+		}else{
+			return {
+				begin: "yyyy-MM-dd",
+				end: "yyyy-MM-dd"
+			}
 		}
     }
 
@@ -52,13 +57,10 @@ class MainForm extends Component {
 
 	handleSubmit(e){
 		e.preventDefault()
-		// if(this.state.begin===this.state.end){
-		// 	alert("please select last day")
-		// 	return
-		// }
 		console.log({...this.state})
 		this.props.sendSearch({...this.state})
-		if(this.props.location.pathname !== "/Houses")this.props.history.push("/Houses")
+		this.props.getHouse("",{...this.state, date:[...this.props.date]})
+		if(this.props.location.pathname !== "/Houses")this.props.history.push("/houses")
 	}
 
 	render(){
@@ -122,4 +124,4 @@ function mapStateToProps(state) {
 }
 
 
-export default withRouter(connect(mapStateToProps,{sendSearch})(MainForm));
+export default withRouter(connect(mapStateToProps,{sendSearch, getHouse})(MainForm));

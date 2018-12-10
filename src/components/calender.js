@@ -79,7 +79,12 @@ class Calender extends Component {
 				}else{
 					arr.push(<div 
 					className="text-center pointer" 
-					style={{width:"70px",color:date[i].select?"white":"black", background:date[i].select?"#FE9000":"", transition:"0.2s"}}  
+					style={{
+						width:"70px",
+						color:date[i].select?"white":"black", 
+						background:date[i].select?"#FE9000":"", 
+						border:this.props.date.indexOf(parseInt(date[i].time))>-1?"1px soild black":"",
+						transition:"0.2s"}}  
 					key={i}
 					data-time={date[i].time}
 					onClick={this.handleClick.bind(this)}
@@ -147,18 +152,24 @@ class Calender extends Component {
 		})
 	}
 
+	handleClear(){
+		this.props.setDate([])
+		let dateData = this.state.dateData.map(i=>{
+				return {...i,select:false}
+			})
+		this.setState({
+			dateData
+		})
+	}
+
 	render() {
 		return (
 			<div className="shadow rounded">
 				<header>
 					<h3 className="text-center d-flex justify-content-between">
-						{this.state.dataIndicate>0?
-							<span onClick={this.handlePrev.bind(this)} className="pointer" style={{color:"#094074"}}>
+							<span onClick={this.state.dataIndicate>0?this.handlePrev.bind(this):null} className="pointer" style={{color:"#094074"}}>
 									<i id="prev" className="fas fa-arrow-circle-left"></i>
-							</span>:
-							<span className="pointer" style={{color:"#094074"}}>
-									<i id="prev" className="fas fa-arrow-circle-left"></i>
-							</span>}
+							</span>
 						&nbsp;{this.state.showYear} {monthName[this.state.showMonth]}&nbsp;
 						<span onClick={this.handleNext.bind(this)}  className="pointer" style={{color:"#094074"}}>
 							<i id="next" className="fas fa-arrow-circle-right"></i>
@@ -182,6 +193,7 @@ class Calender extends Component {
 					<div className="d-flex justify-content-around">{this.createElem(this.state.dataIndicate).filter((date,i)=>i>27&&i<35)}</div>
 					<div className="d-flex justify-content-around">{this.createElem(this.state.dataIndicate).filter((date,i)=>i>34&&i<42)}</div>
 				</div>
+				<div className="btn btn-warning" onClick={this.handleClear.bind(this)}>clear</div>
 			</div>
 		);
 	}
