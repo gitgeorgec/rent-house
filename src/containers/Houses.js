@@ -3,6 +3,7 @@ import HouseList from './HouseList'
 import MainForm from '../components/Mainform'
 import Calender from '../components/Calender';
 import ShowHouse from '../components/ShowHouse'
+import GoogleMap from '../components/GoogleMap';
 class Houses extends Component {
     
     componentDidMount(){
@@ -14,8 +15,15 @@ class Houses extends Component {
         <div className="container m-3 mx-auto">
         <h1>distination: {this.props.search.distination}</h1> 
         <div className="row">
-          <MainForm />
-          <Calender />
+          <div className="col-6">
+            <MainForm />
+          </div>
+          <div className="col-6">
+            <GoogleMap />
+          </div>
+          <div className="col-12">
+            <Calender />
+          </div>
         </div>
         <ShowHouse {...this.props}/>
           <h1 className="text-center">{!this.props.houses.loading&&this.props.houses.data.length === 0?"NOT FOUND":"Found Houses"}</h1>

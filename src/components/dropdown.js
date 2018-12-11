@@ -23,7 +23,7 @@ class Dropdown extends Component {
                     </li>
                     <li className="nav-item" style={{marginLeft:"1rem"}}>
                         <NavLink exact className="nav-link" to="/Houses">
-                        <i className="fas fa-search"></i> Rent
+                        <i className="fas fa-search"></i> search
                         </NavLink>
                     </li>
                     <li className="nav-item" style={{marginLeft:"1rem"}}>

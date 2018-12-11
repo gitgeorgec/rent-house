@@ -134,7 +134,7 @@ class Calender extends Component {
 	handleClick(e){
 		let selectData
 		if(this.state.firstClick){
-			selectData = this.state.dateData.map(i=>i.time === parseInt(e.target.dataset.time)?{...i, select:true}:{...i, select:false})
+			selectData = this.state.dateData.map(i=>i.time === parseInt(e.target.dataset.time)||i.time === parseInt(e.target.dataset.time)+86400000?{...i, select:true}:{...i, select:false})
 		}else{
 			let beginDay = this.state.dateData.find(i=>i.select ===true)
 			if(e.target.dataset.time>beginDay.time){

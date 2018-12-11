@@ -9,7 +9,6 @@ class Card extends Component {
     }
 
     handleClear=()=>{
-        console.log("clicl")
         this.props.clearSelect()
     }
 

@@ -14,7 +14,7 @@ class ShowHouse extends Component {
 	render(){
         if(this.props.select[0]){
             return(
-                <div className="row border p-3">
+                <div className="row p-3">
                     <h3 className="col-12">{this.props.select[0].name}</h3>
                     <hr/>
                     <div className="col-md-6">

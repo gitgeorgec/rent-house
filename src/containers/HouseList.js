@@ -12,6 +12,7 @@ class HouseList extends Component {
                   name={house.name} 
                   address={house.address} 
                   price={house.price} 
+                  houseId={house._id}
                   owner={house.owner.username}
                   ownerImg={house.owner.image}
                   ownerId = {house.owner._id}

@@ -11,6 +11,7 @@ import Header from './Header'
 import Houses from './Houses'
 import PostForm from '../components/PostForm'
 import OrderForm from '../components/OrderFrom'
+import User from './User'
 
 const Main = props => {
     const { authUser,facebookAuth, errors, removeError, addHouse, getHouse, currentUser, houses, date, search, select, sendOrderRequset} = props
@@ -58,6 +59,11 @@ const Main = props => {
                         return (<Redirect to="/signin"/>)
                     }
                 }} /> 
+                <Route exact path="/user" render={props=>{
+                    return (<User
+                        currentUser={ currentUser }   
+                        {...props}/>)
+                }}/>
             </Switch>
         </React.Fragment>          
     )

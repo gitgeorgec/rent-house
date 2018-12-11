@@ -5,10 +5,13 @@ class OrderForm extends Component{
   constructor(props){
     super(props)
     this.state = {
+        loading:false,
         email:"",
 				phone:"",
 				same:false,
-				specialRequest:""
+        specialRequest:"",
+        adult:1,
+        child:0,
     }
 	}
 
@@ -17,12 +20,14 @@ class OrderForm extends Component{
 		let order = {
 			email: this.state.email,
 			phone: this.state.phone,
-			houseId: this.props.select[0].id,
+			houseId: this.props.select[0].houseId,
 			houseOwner: this.props.select[0].ownerId,
 			date: this.props.date,
-			specialRequest: this.state.specialRequest,
+      specialRequest: this.state.specialRequest,
+      accommodate: this.state.accommodate
 		}
-		this.props.sendOrderRequset("post", this.props.currentUser.user.id, order)
+    this.props.sendOrderRequset("post", this.props.currentUser.user.id, order)
+    .then(res=>console.log(res))
   }
 
   handleChange = e =>{
@@ -64,14 +69,39 @@ class OrderForm extends Component{
         </div>
           <div className="form-group">
             <label htmlFor="Email">Email address</label>
-            <input name="email" type="email" className="form-control" id="Email" placeholder="Enter email" onChange={this.handleChange} value={this.state.email}/>
+            <input name="email" type="email" className="form-control" id="Email" placeholder="Enter email" onChange={this.handleChange} value={this.state.email} readOnly={this.state.same}/>
           </div>
           <div className="form-group">
             <label htmlFor="Phone">Phone Number</label>
             <input name="phone" type="text" className="form-control" id="Phone" placeholder="Phone Number" onChange={this.handleChange} value={this.state.phone}/>
           </div>
+          <div className="form-row">
+            <div className="form-group col-6">
+              <label htmlFor="adultNum">Adult</label>
+              <select className="form-control" id="adultNum" name="adult" onChange={this.handleChange} value={this.state.adult}>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+              </select>
+            </div>
+            <div className="form-group col-6">
+              <label htmlFor="childrenNum">Child</label>
+              <select className="form-control" id="childrenNum" name="child" onChange={this.handleChange}>
+                <option>0</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+              </select>
+            </div>
+          </div>
           <div className="form-group">
-            <label htmlFor="Phone">Phone Number</label>
+            <label htmlFor="Phone">Special Request</label>
             <textarea name="specialRequest" type="text" className="form-control" id="specialRequest" placeholder="Special Request" onChange={this.handleChange} value={this.state.specialRequest}/>
           </div>
 					<div>
