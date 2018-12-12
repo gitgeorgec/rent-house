@@ -7,6 +7,7 @@ class User extends Component{
     this.state={
         houses:[],
         orders:[],
+        comments:[],
         page:"user"
     }
   }
@@ -16,8 +17,10 @@ class User extends Component{
     apiCall("get", `${URL}api/user/${this.props.currentUser.user.id}/`)
     .then((res)=>{
         this.setState({
+            loading:false,
             houses:res.houses,
-            orders:res.orders
+            orders:res.orders,
+            comments:res.comments
         })
     })
   }
@@ -26,6 +29,45 @@ class User extends Component{
       this.setState({
           page:e.target.innerText
         })
+  }
+
+  handleRemoveHouse = (e) =>{
+    const URL = "http://localhost:8081/"
+    apiCall("delete",`${URL}api/user/${this.props.currentUser.user.id}/house/${e.target.dataset.id}`)
+    .then(res=>{
+        if(res._id){
+            let filterState = this.state.houses.filter(house=>house._id !== res._id)
+            this.setState({
+                houses:filterState
+            })
+        }
+    })
+  }
+
+  handleCancelOrder = (e) =>{
+    const URL = "http://localhost:8081/"
+    apiCall("delete",`${URL}api/order/${this.props.currentUser.user.id}/${e.target.dataset.id}`)
+    .then(res=>{
+        if(res._id){
+            let filterState = this.state.orders.filter(order=>order._id !== res._id)
+            this.setState({
+                orders:filterState
+            })
+        }
+    })
+  }
+
+  handleRemoveComment=(e)=>{
+    const URL = "http://localhost:8081/"
+    apiCall("delete",`${URL}api/comment/${this.props.currentUser.user.id}/${e.target.dataset.id}`)
+    .then(res=>{
+        if(res._id){
+            let filterState = this.state.comments.filter(comment=>comment._id !== res._id)
+            this.setState({
+                comments:filterState
+            })
+        }
+    })
   }
 
   render(){
@@ -58,24 +100,49 @@ class User extends Component{
             let lastDay = (new Date(order.date[1]))
             let begin = `${firstDay.getFullYear()}-${firstDay.getMonth()+1}-${firstDay.getDate()}`
             let end = `${lastDay.getFullYear()}-${lastDay.getMonth()+1}-${lastDay.getDate()}`
-            return (
-            <div key={order._id} className="col-12">
-                <div className="row m-1 pt-2 pb-2 border rounded">
-                    <div className="col-sm-4 col-6">
-                        <img className="card-img shadow" src={order.house.image} alt=""/>
-                    </div>
-                    <div className="col-sm-8 col-6">
-                        <h4>{order.house.name}&nbsp;</h4>
-                        Address: {order.house.address} <br/>
-                        Price: ${order.house.price}
-                        <div className="m-2 p-1">
-                        <span className="float-right d-inline-block">
-                        from : {begin} to {end}
-                        </span>
+            if(order.house){
+                return (
+                <div key={order._id} className="col-12">
+                    <div className="row m-1 pt-2 pb-2 border rounded">
+                        <div className="col-sm-4 col-6">
+                            <img className="card-img shadow" src={order.house.image} alt=""/>
+                        </div>
+                        <div className="col-sm-8 col-6">
+                            <h4>{order.house.name}&nbsp;</h4>
+                            Address: {order.house.address} <br/>
+                            Price: ${order.house.price}
+                            <div className="m-2 p-1">
+                                <span className="float-right d-inline-block">
+                                from : {begin} to {end}
+                                <div className="btn btn-danger" data-id={order._id} onClick={this.handleCancelOrder}>cancel</div>
+                                </span>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>)
+                </div>)
+            }else {
+                return (
+                <div key={order._id} className="col-12">
+                    <div className="row m-1 pt-2 pb-2 rounded" style={{border:"1px solid red"}}>
+                        <div className="col-sm-3 col-6">
+                            <img className="card-img shadow" src={order.houseOwner.profileImageUrl} alt=""/>
+                        </div>
+                        <div className="col-sm-9 col-6">
+                            <h4>House had been removed</h4>
+                            phouse owner contact<br/>
+                            email:{order.houseOwner.email}<br/>
+                            name:{order.houseOwner.username}   
+                            <div className="m-2 p-1">
+                                <span className="float-right d-inline-block">
+                                from : {begin} to {end}
+                                <div className="btn btn-danger" data-id={order._id} onClick={this.handleCancelOrder}>cancel</div>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>)
+
+            }
         })
     }
 
@@ -91,6 +158,9 @@ class User extends Component{
                         <h4>{house.name}&nbsp;</h4>
                         Address: {house.address} <br/>
                         Price: ${house.price}
+                        <div className="m-2 p-1">
+                            <div className="btn btn-danger" data-id={house._id} onClick={this.handleRemoveHouse}>DELETE</div>
+                        </div>
                     </div>
                 </div>
             </div>)
@@ -98,11 +168,22 @@ class User extends Component{
     }
 
     const comment = () => {
-        return (
-            <div>
-                comment
-            </div>
-        )
+        return this.state.comments.map(comment=>{
+            return (
+            <div key={comment._id} className="col-12">
+                <div className="row m-1 pt-2 pb-2 border rounded">
+                    <div className="col-sm-4 col-6">
+                        <img className="card-img shadow" src={comment.house.image} alt=""/>
+                    </div>
+                    <div className="col-sm-8 col-6">
+                        <h4>{comment.text}&nbsp;</h4>
+                        <div className="m-2 p-1">
+                            <div className="btn btn-danger" data-id={comment._id} onClick={this.handleRemoveComment}>DELETE</div>
+                        </div>
+                    </div>
+                </div>
+            </div>)
+        })
     }
 
     return (
@@ -119,8 +200,8 @@ class User extends Component{
                 {this.state.page==="house"?house():""}
                 {this.state.page==="comment"?comment():""}
             </main>
-            
         </div>
+
       )
   }
 }

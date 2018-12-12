@@ -3,7 +3,7 @@ import HouseList from './HouseList'
 import MainForm from '../components/Mainform'
 import Calender from '../components/Calender';
 import ShowHouse from '../components/ShowHouse'
-import GoogleMap from '../components/GoogleMap';
+// import GoogleMap from '../components/GoogleMap';
 class Houses extends Component {
     
     componentDidMount(){
@@ -19,7 +19,7 @@ class Houses extends Component {
             <MainForm />
           </div>
           <div className="col-6">
-            <GoogleMap />
+            {/* <GoogleMap /> */}
           </div>
           <div className="col-12">
             <Calender />

@@ -10,7 +10,8 @@ class HouseList extends Component {
                 return <HouseCard 
                   key={i}
                   name={house.name} 
-                  address={house.address} 
+                  address={house.address}
+                  geometry={house.geometry}
                   price={house.price} 
                   houseId={house._id}
                   owner={house.owner.username}

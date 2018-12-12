@@ -23,7 +23,6 @@ class Card extends Component {
                 <ul className="list-group list-group-flush">
                     <li className="list-group-item">Address: {this.props.address}</li>
                     <li className="list-group-item">Price: {this.props.price}</li>
-                    <li className="list-group-item">Owner: {this.props.owner}</li>
                 </ul>
                 </div>
                 <div className="card-footer">

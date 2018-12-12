@@ -55,11 +55,19 @@ class MainForm extends Component {
         })
     }
 
-	handleSubmit(e){
+	async handleSubmit(e){
 		e.preventDefault()
 		console.log({...this.state})
+		let geometry = ""
+		if(this.state.distination){
+			geometry = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${this.state.distination}&key=AIzaSyAjQDTCdLCWo2JBZiosUYNEox7R92t_Ts4`)
+			.then(res=>res.json())
+			.then(res=>{
+				return res.results[0].geometry.location
+			})
+		}
 		this.props.sendSearch({...this.state})
-		this.props.getHouse("",{...this.state, date:[...this.props.date]})
+		this.props.getHouse("",{...this.state, date:[...this.props.date], geometry})
 		if(this.props.location.pathname !== "/Houses")this.props.history.push("/houses")
 	}
 

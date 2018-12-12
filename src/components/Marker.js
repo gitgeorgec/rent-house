@@ -1,4 +1,3 @@
-
 import React, {Component} from 'react';
 
 
@@ -36,8 +35,8 @@ export default class MyGreatPlaceWithHover extends Component {
     return (
        <div style={{position:"relative"}}>
         <div className="pin1"></div>
-        {this.props.$hover?<div style={style}>hover</div>:null}
-          {this.props.text}
+        {/* {this.props.$hover?<div style={style}>hover</div>:null}
+          {this.props.text} */}
        </div>
     );
   }

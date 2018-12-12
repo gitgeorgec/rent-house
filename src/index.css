@@ -21,8 +21,8 @@ orange   #FE9000 */
 
 .pin1 {
   position: absolute;
-  top: -50%;
-  left: -25%;
+  top: -20px;
+  left: -10px;
 
   border-radius: 50% 50% 50% 0;
   border: 2px solid rgb(255, 0, 0);

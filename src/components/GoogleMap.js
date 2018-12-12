@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 import Marker from './Marker'
 
-const AnyReactComponent = ({ text }) => <div className="border">{text}</div>;
+// const AnyReactComponent = ({ text }) => <div className="border">{text}</div>;
 // const google = window.google;
 
 class GoogleMap extends Component {
@@ -17,10 +17,10 @@ class GoogleMap extends Component {
     super()
     this.state={
       center:{
-				lat:24.1333828,
-				lng:120.6611994
+				lat:25.0415527,
+				lng:121.536762
 			},
-			zoom:10
+			zoom:15
     }
 	}
 	
@@ -96,7 +96,7 @@ class GoogleMap extends Component {
     return (
       <div style={{ height: "50vh", width: '100%' }} id="map">
         <GoogleMapReact
-          bootstrapURLKeys={{ key:"AIzaSyAjQDTCdLCWo2JBZiosUYNEox7R92t_Ts4"}}
+          // bootstrapURLKeys={{ key:"AIzaSyAjQDTCdLCWo2JBZiosUYNEox7R92t_Ts4"}}
           defaultCenter={this.state.center}
 					defaultZoom={this.state.zoom}
 					zoom={this.state.zoom}
@@ -106,11 +106,11 @@ class GoogleMap extends Component {
 					onClick={this.onClick}
         >
 
-          <AnyReactComponent
+          {/* <AnyReactComponent
 						lat={24.1233828}
 						lng={120.3611994}
 						text={'Hello World'}
-          />
+          /> */}
 					<Marker
 					lat={this.state.center.lat}
 					lng={this.state.center.lng} 

@@ -60,9 +60,13 @@ const Main = props => {
                     }
                 }} /> 
                 <Route exact path="/user" render={props=>{
-                    return (<User
-                        currentUser={ currentUser }   
-                        {...props}/>)
+                    if(currentUser.isAuthenticated){
+                        return (<User
+                            currentUser={ currentUser }   
+                            {...props}/>)
+                    }else{
+                        return (<Redirect to="/signin"/>)
+                    }
                 }}/>
             </Switch>
         </React.Fragment>          

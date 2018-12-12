@@ -25,13 +25,13 @@ export const selectHouse = hosue =>({
 
 export const getHouse = (houseId="",query="") => (dispatch) =>{
     dispatch(loading())
+    console.log(query)
     let search =""
     if(houseId)search = houseId
     if(Object.keys(query).length>1){
         let accommodate = parseInt(query.adult)+parseInt(query.child)
-        search = `?search=1&address=${query.distination}&accommodate=${accommodate>1?accommodate:1}&date=${query.date.join(",")}`
+        search = `?search=1${query.geometry?"&geometry="+query.geometry.lat+","+query.geometry.lng:""}${accommodate?"&accommodate="+accommodate:""}&date=${query.date.join(",")}`
     }
-    console.log(`${URL}api/house/${search}`)
     return apiCall("get", `${URL}api/house/${search}`)
     .then(houses=>{
             dispatch(loadHosues(houses))

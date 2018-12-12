@@ -13,6 +13,7 @@ class Post extends Component {
             accommodate:2,
             description:"",
             availableDate:[],
+            
         }
     }
 
@@ -23,10 +24,15 @@ class Post extends Component {
     //     return {availableDate:nextProps.date}
     // }
 
-    handleSubmit = (e) => {
+    handleSubmit = async (e) => {
         e.preventDefault()
+        let geometry = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${this.state.address}&key=AIzaSyAjQDTCdLCWo2JBZiosUYNEox7R92t_Ts4`)
+        .then(res=>res.json())
+        .then(res=>{
+            return res.results[0].geometry.location
+        })
         const userId = this.props.currentUser.user.id
-        let house = {...this.state, availableDate: this.props.date}
+        let house = {...this.state, availableDate: this.props.date, geometry}
         this.props.addHouse(house,userId)
         .then(res=>{
             if(res.name)this.props.history.push("/Houses")

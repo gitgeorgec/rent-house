@@ -5,7 +5,7 @@ class OrderForm extends Component{
   constructor(props){
     super(props)
     this.state = {
-        loading:false,
+        finish:false,
         email:"",
 				phone:"",
 				same:false,
@@ -24,10 +24,19 @@ class OrderForm extends Component{
 			houseOwner: this.props.select[0].ownerId,
 			date: this.props.date,
       specialRequest: this.state.specialRequest,
-      accommodate: this.state.accommodate
+      accommodate: {
+        adult:this.state.adult,
+        child:this.state.child
+      }
 		}
     this.props.sendOrderRequset("post", this.props.currentUser.user.id, order)
-    .then(res=>console.log(res))
+    .then(res=>{
+      if(res.customer){
+        this.setState({
+          finish:true,
+        })
+      }
+    })
   }
 
   handleChange = e =>{
@@ -54,9 +63,10 @@ class OrderForm extends Component{
     const {heading, errors, history, removeError} = this.props
     history.listen(() => {
       removeError()
-		})
+    })
     return (
       <div className="col-md-6 mx-auto row">
+      {this.state.finish?<div className="alert alert-success">success</div>:""}
 				<div className="col-12">
 					<img src={this.props.select[0].image} alt="" style={{width:"100%"}}/>
 				</div>
