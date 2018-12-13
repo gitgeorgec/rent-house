@@ -66,7 +66,7 @@ class MainForm extends Component {
 				return res.results[0].geometry.location
 			})
 		}
-		this.props.sendSearch({...this.state})
+		this.props.sendSearch({...this.state,geometry})
 		this.props.getHouse("",{...this.state, date:[...this.props.date], geometry})
 		if(this.props.location.pathname !== "/Houses")this.props.history.push("/houses")
 	}

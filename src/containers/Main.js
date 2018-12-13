@@ -2,9 +2,10 @@ import React from 'react'
 import {Switch, Route, withRouter, Redirect} from 'react-router-dom'
 import { connect } from 'react-redux'
 import { authUser, facebookAuth } from "../store/actions/auth"
-import { addHouse, getHouse } from "../store/actions/house"
+import { addHouse, getHouse, loadHosues } from "../store/actions/house"
 import { removeError } from '../store/actions/errors'
 import { sendOrderRequset } from '../store/actions/order'
+import { setDate } from '../store/actions/date'
 import Index from './Index'
 import AuthForm from '../components/AuthForm'
 import Header from './Header'
@@ -14,7 +15,20 @@ import OrderForm from '../components/OrderFrom'
 import User from './User'
 
 const Main = props => {
-    const { authUser,facebookAuth, errors, removeError, addHouse, getHouse, currentUser, houses, date, search, select, sendOrderRequset} = props
+    const { authUser,
+        facebookAuth, 
+        errors, 
+        removeError, 
+        addHouse, 
+        getHouse,
+        loadHosues,
+        currentUser, 
+        houses, 
+        date, 
+        search, 
+        select, 
+        sendOrderRequset, 
+        setDate} = props
     return (
         <React.Fragment>
             <Header  currentUser ={ currentUser }/>
@@ -33,24 +47,46 @@ const Main = props => {
                 }}/>
                 <Route exact path="/:id/house/new" render={props=>{
                     return (
-                        <PostForm date={date} removeError={ removeError } errors={ errors } currentUser ={ currentUser } addHouse={ addHouse } {...props}/>
+                        <PostForm date={date} 
+                        removeError={ removeError } 
+                        errors={ errors } 
+                        currentUser ={ currentUser } 
+                        addHouse={ addHouse } 
+                        setDate ={ setDate }
+                        {...props}/>
                     )
                 }}/>
                 <Route exact path="/signin" render={props=>{
                     return (
-                        <AuthForm removeError={ removeError } errors={ errors } onAuth={ authUser } facebookAuth={ facebookAuth } buttonText="Log in" heading="Welcome Back." {...props}/>
+                        <AuthForm removeError={ removeError } 
+                        errors={ errors } 
+                        onAuth={ authUser } 
+                        facebookAuth={ facebookAuth } 
+                        buttonText="Log in" 
+                        heading="Welcome Back." {...props}/>
                     )
                 }} />
                 <Route exact path="/signup" render={props=>{
                     return (
-                        <AuthForm  removeError={ removeError } errors={ errors } onAuth={ authUser } facebookAuth={ facebookAuth } buttonText="sign up" heading="Join Today." signUp {...props}/>
+                        <AuthForm  removeError={ removeError } 
+                        errors={ errors } 
+                        onAuth={ authUser } 
+                        facebookAuth={ facebookAuth } 
+                        buttonText="sign up" 
+                        heading="Join Today." 
+                        signUp {...props}/>
                     )
                 }} />
                 <Route exact path="/houses/order" render={props=>{
                     if(currentUser.isAuthenticated){
                         if(select.length>0){
                             return (
-                               <OrderForm date={ date } removeError={ removeError } errors={ errors } currentUser={ currentUser }  select={ select } sendOrderRequset={ sendOrderRequset } {...props}/>
+                               <OrderForm date={ date } 
+                               removeError={ removeError } 
+                               errors={ errors } 
+                               currentUser={ currentUser }  
+                               select={ select } 
+                               sendOrderRequset={ sendOrderRequset } {...props}/>
                            )
                         }else{
                             return (<Redirect to="/houses"/>)
@@ -62,7 +98,9 @@ const Main = props => {
                 <Route exact path="/user" render={props=>{
                     if(currentUser.isAuthenticated){
                         return (<User
-                            currentUser={ currentUser }   
+                            currentUser={ currentUser }
+                            houses = { houses }
+                            loadHosues = {loadHosues}
                             {...props}/>)
                     }else{
                         return (<Redirect to="/signin"/>)
@@ -84,4 +122,4 @@ function mapStateToProps(state){
     }
 }
 
-export default withRouter(connect(mapStateToProps, { authUser,facebookAuth ,removeError, addHouse, getHouse, sendOrderRequset})(Main))
+export default withRouter(connect(mapStateToProps, { authUser,facebookAuth ,removeError, addHouse, getHouse, sendOrderRequset, setDate,loadHosues})(Main))

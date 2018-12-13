@@ -17,7 +17,6 @@ class User extends Component{
     apiCall("get", `${URL}api/user/${this.props.currentUser.user.id}/`)
     .then((res)=>{
         this.setState({
-            loading:false,
             houses:res.houses,
             orders:res.orders,
             comments:res.comments
@@ -36,6 +35,8 @@ class User extends Component{
     apiCall("delete",`${URL}api/user/${this.props.currentUser.user.id}/house/${e.target.dataset.id}`)
     .then(res=>{
         if(res._id){
+            let houseData = this.props.houses.data.filter(house=>house._id !== res._id)
+            this.props.loadHosues(houseData)
             let filterState = this.state.houses.filter(house=>house._id !== res._id)
             this.setState({
                 houses:filterState

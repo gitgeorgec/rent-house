@@ -33,12 +33,13 @@ class Post extends Component {
         })
         const userId = this.props.currentUser.user.id
         let house = {...this.state, availableDate: this.props.date, geometry}
+        this.props.setDate([])
         this.props.addHouse(house,userId)
         .then(res=>{
             if(res.name)this.props.history.push("/Houses")
         })
     }
-
+    
     handleChange = (e) => {
         this.setState({
             [e.target.name]:e.target.value

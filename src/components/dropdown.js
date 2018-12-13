@@ -14,8 +14,6 @@ class Dropdown extends Component {
       return (
         <div className="collapse navbar-collapse justify-content-end" id="Dropdown">
             <ul className="navbar-nav" style={{color:"#fff"}}>
-                {this.props.currentUser.isAuthenticated?
-                <React.Fragment>
                     <li className="nav-item" style={{marginLeft:"1rem"}}>
                         <NavLink exact className="nav-link" to={`/${this.props.currentUser.user.id}/house/new`}>
                         <i className="fas fa-home"></i> Land
@@ -26,6 +24,13 @@ class Dropdown extends Component {
                         <i className="fas fa-search"></i> search
                         </NavLink>
                     </li>
+                    <li className="nav-item" style={{marginLeft:"1rem"}}>
+                        <NavLink exact className="nav-link" to="/about">
+                        <i className="fas fa-book"></i> About
+                        </NavLink>
+                    </li>
+                {this.props.currentUser.isAuthenticated?
+                <React.Fragment>
                     <li className="nav-item" style={{marginLeft:"1rem"}}>
                         <NavLink exact className="nav-link" to="/user">
                         <i className="fas fa-user"></i> User
@@ -46,11 +51,6 @@ class Dropdown extends Component {
                     <li className="nav-item" style={{marginLeft:"1rem"}}>
                         <NavLink exact className="nav-link" to="/signin">
                         <i className="fas fa-book"></i> signin
-                        </NavLink>
-                    </li>
-                    <li className="nav-item" style={{marginLeft:"1rem"}}>
-                        <NavLink exact className="nav-link" to="/about">
-                        <i className="fas fa-book"></i> About
                         </NavLink>
                     </li>
                 </React.Fragment>}

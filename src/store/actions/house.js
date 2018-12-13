@@ -1,6 +1,6 @@
 import { apiCall } from "../../service/api"
 import { addError } from "./errors"
-import { LOAD_HOUSES, DELETE_HOUSE, LOADING, SELECT_HOUSE } from "../actionTypes"
+import { LOAD_HOUSES, LOADING } from "../actionTypes"
 // const URL = "https://mighty-waters-27861.herokuapp.com/"
 const URL = "http://localhost:8081/"
 
@@ -9,29 +9,21 @@ export const loadHosues = houses =>({
     houses
 })
 
-export const deleteHouse = houseId =>({
-    type:DELETE_HOUSE,
-    houseId
-})
-
-export const loading = () =>({
-    type:LOADING
-})
-
-export const selectHouse = hosue =>({
-    type:SELECT_HOUSE,
-    hosue
+export const loading = loading =>({
+    type:LOADING,
+    loading
 })
 
 export const getHouse = (houseId="",query="") => (dispatch) =>{
-    dispatch(loading())
+    dispatch(loading(true))
     console.log(query)
     let search =""
     if(houseId)search = houseId
     if(Object.keys(query).length>1){
         let accommodate = parseInt(query.adult)+parseInt(query.child)
-        search = `?search=1${query.geometry?"&geometry="+query.geometry.lat+","+query.geometry.lng:""}${accommodate?"&accommodate="+accommodate:""}&date=${query.date.join(",")}`
+        search = `?search=1${query.geometry?"&geometry="+query.geometry.lat+","+query.geometry.lng:""}${accommodate?"&accommodate="+accommodate:""}&date=${query.date?query.date.join(","):""}`
     }
+    console.log(`${URL}api/house/${search}`)
     return apiCall("get", `${URL}api/house/${search}`)
     .then(houses=>{
             dispatch(loadHosues(houses))
@@ -47,10 +39,10 @@ export const getHouse = (houseId="",query="") => (dispatch) =>{
 
 
 export const addHouse = (houseData, userId) => (dispatch) =>{
-    dispatch(loading())
+    dispatch(loading(true))
     return apiCall("post",`${URL}api/user/${userId}/house/new`, houseData)
         .then(house=>{
-            dispatch(loadHosues([house]))
+            dispatch(loading(false))
             return house
         })
         .catch(err=>{
