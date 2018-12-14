@@ -29,10 +29,6 @@ class Calender extends Component {
 		this.renderDate(this.state.showYear, this.state.showMonth)
 	}
 
-	componentWillUpdate(){
-		
-	}
-
 	getStartWeekDay(year, month){
     let startDay = new Date(year,month,1)
     return startDay.getDay()

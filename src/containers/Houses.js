@@ -13,9 +13,11 @@ class Houses extends Component {
   }
 
   componentWillMount(){
-    if(!this.props.houses.loading&&this.props.houses.data.length===0){
-        this.props.getHouse("",{...this.props.search, date:[...this.props.date]})
-    }
+    this.props.getHouse("",{...this.props.search, date:[...this.props.date]})
+    this.props.clearSelect()
+    this.setState({
+      showFrom:false
+    })
   }
 
   handleShowFrom=()=>{
@@ -29,8 +31,8 @@ class Houses extends Component {
       <React.Fragment>
         <ShowHouse {...this.props}/>
         <div className="container m-3 mx-auto">
-        <h1>distination: {this.props.search.distination?this.props.search.distination:"ALL"}</h1>
-        <button onClick={this.handleShowFrom}> click</button>
+        <h1 className="back_deepblue" style={{color:"#fff"}}>distination:  {this.props.search.distination?this.props.search.distination:"ALL"} , checkin: {this.props.search.begin?this.props.search.begin:"Not select"} ,checkout: {this.props.search.end?this.props.search.end:"Not select"}, adult: {this.props.search.adult?this.props.search.adult:1}, child: {this.props.search.child?this.props.search.child:0}</h1>
+        <button onClick={this.handleShowFrom}>click</button>
         <div className="row position-absolute mx-auto p-3" 
         style={{
           zIndex:"120", 
@@ -50,12 +52,12 @@ class Houses extends Component {
         </div>
           <h1 className="text-center">{!this.props.houses.loading&&this.props.houses.data.length === 0?"NOT FOUND":"Found Houses"}</h1>
           <hr/>
-          <div className="row">
+          <div className="row justify-content-center">
+            {this.props.houses.loading?<div className="lds-facebook"><div></div><div></div><div></div></div>:
             <div className="card-columns" style={{minHeight:"80vh"}}>
-              {this.props.houses.loading?<h3 className="text-center">loading</h3>:
               <HouseList houses={this.props.houses.data}/>
-              }
             </div>
+            }
           </div>
         </div>
       </React.Fragment>

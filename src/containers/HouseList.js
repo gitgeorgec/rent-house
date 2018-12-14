@@ -17,7 +17,9 @@ class HouseList extends Component {
                   owner={house.owner.username}
                   ownerImg={house.owner.image}
                   ownerId = {house.owner._id}
-                  image={house.image}/>
+                  image={house.image}
+                  unavailableDate= {house.unavailableDate}
+                  />
               })
             }
             return arr

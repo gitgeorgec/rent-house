@@ -36,7 +36,7 @@ class MainForm extends Component {
 	static getDerivedStateFromProps(nextProps){
 		if(nextProps.date[0]){
 			let firstDay = new Date(nextProps.date[0])
-			let lastDay = new Date(nextProps.date[nextProps.date.length-1])
+			let lastDay = new Date(nextProps.date[nextProps.date.length-1]+86400000)
 			return{
 				begin:`${firstDay.getFullYear()}-${Math.floor((firstDay.getMonth()+1)/10)}${(firstDay.getMonth()+1)%10}-${Math.floor((firstDay.getDate())/10)}${(firstDay.getDate())%10}`,
 				end:`${lastDay.getFullYear()}-${Math.floor((lastDay.getMonth()+1)/10)}${(lastDay.getMonth()+1)%10}-${Math.floor((lastDay.getDate())/10)}${(lastDay.getDate())%10}`

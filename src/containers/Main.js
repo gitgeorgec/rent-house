@@ -6,6 +6,8 @@ import { addHouse, getHouse, loadHosues } from "../store/actions/house"
 import { removeError } from '../store/actions/errors'
 import { sendOrderRequset } from '../store/actions/order'
 import { setDate } from '../store/actions/date'
+import { clearSelect } from '../store/actions/select'
+import { sendSearch } from "../store/actions/search"
 import Index from './Index'
 import AuthForm from '../components/AuthForm'
 import Header from './Header'
@@ -28,7 +30,9 @@ const Main = props => {
         search, 
         select, 
         sendOrderRequset, 
-        setDate} = props
+        setDate,
+        clearSelect,
+        sendSearch} = props
     return (
         <React.Fragment>
             <Header  currentUser ={ currentUser }/>
@@ -39,22 +43,28 @@ const Main = props => {
                     return (
                         <Houses 
                         search = { search }
-                        date= {date} 
-                        getHouse = {getHouse} 
-                        houses = {houses} 
+                        date= { date } 
+                        getHouse = { getHouse } 
+                        houses = { houses }
+                        clearSelect = { clearSelect }
                         {...props}/>
                     )
                 }}/>
                 <Route exact path="/:id/house/new" render={props=>{
-                    return (
-                        <PostForm date={date} 
-                        removeError={ removeError } 
-                        errors={ errors } 
-                        currentUser ={ currentUser } 
-                        addHouse={ addHouse } 
-                        setDate ={ setDate }
-                        {...props}/>
-                    )
+                    if(currentUser.isAuthenticated){
+                        return (
+                            <PostForm date={date} 
+                            removeError={ removeError } 
+                            errors={ errors } 
+                            currentUser ={ currentUser } 
+                            addHouse={ addHouse } 
+                            setDate ={ setDate }
+                            sendSearch = { sendSearch }
+                            {...props}/>
+                        )
+                    }else{
+                        return (<Redirect to="/signin"/>)
+                    }
                 }}/>
                 <Route exact path="/signin" render={props=>{
                     return (
@@ -122,4 +132,4 @@ function mapStateToProps(state){
     }
 }
 
-export default withRouter(connect(mapStateToProps, { authUser,facebookAuth ,removeError, addHouse, getHouse, sendOrderRequset, setDate,loadHosues})(Main))
+export default withRouter(connect(mapStateToProps, { authUser,facebookAuth ,removeError, addHouse, getHouse, sendOrderRequset, setDate,loadHosues, clearSelect,sendSearch})(Main))

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { setDate } from '../store/actions/date'
+import Datebox from './Datebox'
 
 const month_olympic = [31,29,31,30,31,30,31,31,30,31,30,31];
 const month_normal = [31,28,31,30,31,30,31,31,30,31,30,31];
@@ -30,7 +31,16 @@ class Calender extends Component {
 			dateData:dates
 		})
 	}
-
+	componentDidMount(){
+		if(this.props.unavailableDate || this.props.setUnavailableDate){
+			this.props.setDate([])
+			this.setState({
+				dateData:this.state.dateData.map(i=>{
+					return {...i, select:false}
+				})
+			})
+		}
+	}
 	getStartWeekDay(year, month){
     let startDay = new Date(year,month,1)
     return startDay.getDay()
@@ -77,20 +87,83 @@ class Calender extends Component {
 				if(date[i].time<this.state.today){
 					arr.push(<div className="text-center" style={{width:"70px",color:"rgba(0,0,0,0.5)"}} key={i}>{date[i].monthDate+1}</div>)
 				}else{
-					arr.push(<div 
-					className="text-center pointer" 
-					style={{
-						width:"70px",
-						color:date[i].select?"white":"black", 
-						background:date[i].select?"#FE9000":"", 
-						border:this.props.date.indexOf(parseInt(date[i].time))>-1?"1px soild black":"",
-						transition:"0.2s"}}  
-					key={i}
-					data-time={date[i].time}
-					onClick={this.handleClick.bind(this)}
-					>
-						{date[i].monthDate+1}
-					</div>)
+					if(this.props.unavailableDate){
+						arr.push(
+						this.props.unavailableDate.indexOf(parseInt(date[i].time))>-1?
+						<div 
+						className="text-center pointer" 
+						style={{
+							width:"70px",
+							color:"white", 
+							background:"#094074"}}  
+						key={i}
+						data-time={date[i].time}
+						>
+							{date[i].monthDate+1}
+						</div>:
+						<div 
+						className="text-center pointer" 
+						style={{
+							width:"70px",
+							color:date[i].select?"white":"black", 
+							background:date[i].select?"#FE9000":"", 
+							transition:"0.2s"}}  
+						key={i}
+						data-time={date[i].time}
+						onClick={this.handleClick.bind(this)}
+						>
+							{date[i].monthDate+1}
+						</div>
+						)
+					} else if(this.props.setUnavailableDate){
+						arr.push(
+						<Datebox 
+						selected = {this.props.date.indexOf(parseInt(date[i].time))>-1?true: false}
+						setDate = { this.props.setDate}
+						time = {date[i].time}
+						date = {this.props.date}
+						key={date[i].time}
+						monthDate = {date[i].monthDate+1}
+						firstClick= {this.state.firstClick}
+						/>)
+					} else {
+						arr.push(
+						<div 
+						className="text-center pointer" 
+						style={{
+							width:"70px",
+							color:date[i].select?"white":"black", 
+							background:date[i].select?"#FE9000":"", 
+							transition:"0.2s"}}  
+						key={i}
+						data-time={date[i].time}
+						onClick={this.handleClick.bind(this)}
+						>
+							{date[i].monthDate+1}
+						</div>)
+					}
+					
+					// this.props.unavailableDate?
+					// <Datebox 
+					// selected = {this.props.date.indexOf(parseInt(date[i].time))>-1?true: false}
+					// setDate = { this.props.setDate}
+					// time = {date[i].time}
+					// date = {this.props.date}
+					// key={date[i].time}
+					// monthDate = {date[i].monthDate+1}
+					// unavailableDate= {this.props.unavailableDate.indexOf(parseInt(date[i].time))>-1?true: false}
+					// firstClick= {this.state.firstClick}
+					// />:				
+					// <Datebox 
+					// 	selected = {this.props.date.indexOf(parseInt(date[i].time))>-1?true: false}
+					// 	setDate = { this.props.setDate}
+					// 	time = {date[i].time}
+					// 	date = {this.props.date}
+					// 	key={date[i].time}
+					// 	monthDate = {date[i].monthDate+1}
+					// 	firstClick= {this.state.firstClick}
+					// />
+					// )
 				}
 			}else{
 				arr.push(<div className="text-center" style={{width:"70px",color:"rgba(0,0,0)"}} key={i}></div>)
@@ -100,19 +173,21 @@ class Calender extends Component {
 	}
 
 	handleNext(){
-		if(this.state.showMonth<11){
-			this.setState({
-				showMonth:this.state.showMonth+1,
-				dataIndicate:this.state.dataIndicate +1,
-				dateData:this.state.dateData.length/42-1 === this.state.dataIndicate?this.addMonthDate(this.state.showYear, this.state.showMonth+1):this.state.dateData
-			})
-		}else{
-			this.setState({
-				showYear:this.state.showYear +1,
-				showMonth:0,
-				dataIndicate:this.state.dataIndicate +1,
-				dateData:this.state.dateData.length/42-1 === this.state.dataIndicate?this.addMonthDate(this.state.showYear+1, 0):this.state.dateData
-			})
+		if(this.state.dataIndicate<12){
+			if(this.state.showMonth<11){
+				this.setState({
+					showMonth:this.state.showMonth+1,
+					dataIndicate:this.state.dataIndicate +1,
+					dateData:this.state.dateData.length/42-1 === this.state.dataIndicate?this.addMonthDate(this.state.showYear, this.state.showMonth+1):this.state.dateData
+				})
+			}else{
+				this.setState({
+					showYear:this.state.showYear +1,
+					showMonth:0,
+					dataIndicate:this.state.dataIndicate +1,
+					dateData:this.state.dateData.length/42-1 === this.state.dataIndicate?this.addMonthDate(this.state.showYear+1, 0):this.state.dateData
+				})
+			}
 		}
 	}
 
@@ -134,7 +209,7 @@ class Calender extends Component {
 	handleClick(e){
 		let selectData
 		if(this.state.firstClick){
-			selectData = this.state.dateData.map(i=>i.time === parseInt(e.target.dataset.time)||i.time === parseInt(e.target.dataset.time)+86400000?{...i, select:true}:{...i, select:false})
+			selectData = this.state.dateData.map(i=>i.time === parseInt(e.target.dataset.time)?{...i, select:true}:{...i, select:false})
 		}else{
 			let beginDay = this.state.dateData.find(i=>i.select ===true)
 			if(e.target.dataset.time>beginDay.time){
@@ -145,12 +220,26 @@ class Calender extends Component {
 				selectData = this.state.dateData
 			}
 		}
+
+		if(this.props.unavailableDate){
+			for(let date of selectData.filter(i=>i.select).map(i=>i.time)){
+				if(this.props.unavailableDate.indexOf(parseInt(date))>-1){
+					selectData = this.state.dateData.map(i=>i.time === parseInt(e.target.dataset.time)?{...i, select:true}:{...i, select:false})
+					this.setState({
+						firstClick:false,
+						dateData:selectData
+					})
+					return
+				}
+			}
+		}
 		this.props.setDate(selectData.filter(i=>i.select).map(i=>i.time))
 		this.setState({
 			firstClick:!this.state.firstClick,
 			dateData:selectData
 		})
 	}
+
 
 	handleClear(){
 		this.props.setDate([])
@@ -206,5 +295,3 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps,{ setDate })(Calender);
-// export default connect(mapStateToProps,{ setDate })(Calender);
-// export default Calender

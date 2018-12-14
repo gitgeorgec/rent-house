@@ -25,9 +25,6 @@ class Card extends Component {
                     <li className="list-group-item">Price: {this.props.price}</li>
                 </ul>
                 </div>
-                <div className="card-footer">
-                <small className="text-muted">rank: {this.props.rank}</small>
-                </div>
             </div>
         )
     }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import CommentForm from "../components/CommentForm"
 import { apiCall } from "../service/api"
 
 class User extends Component{
@@ -98,7 +99,7 @@ class User extends Component{
     const order = () => {
         return this.state.orders.map(order=>{
             let firstDay = (new Date(order.date[0]))
-            let lastDay = (new Date(order.date[1]))
+            let lastDay = (new Date(order.date[order.date.length -1]+86400000))
             let begin = `${firstDay.getFullYear()}-${firstDay.getMonth()+1}-${firstDay.getDate()}`
             let end = `${lastDay.getFullYear()}-${lastDay.getMonth()+1}-${lastDay.getDate()}`
             if(order.house){
@@ -111,10 +112,10 @@ class User extends Component{
                         <div className="col-sm-8 col-6">
                             <h4>{order.house.name}&nbsp;</h4>
                             Address: {order.house.address} <br/>
-                            Price: ${order.house.price}
+                            Price: ${order.price}
                             <div className="m-2 p-1">
                                 <span className="float-right d-inline-block">
-                                from : {begin} to {end}
+                                from : {begin} afternoon to {end} morning
                                 <div className="btn btn-danger" data-id={order._id} onClick={this.handleCancelOrder}>cancel</div>
                                 </span>
                             </div>
@@ -142,7 +143,6 @@ class User extends Component{
                         </div>
                     </div>
                 </div>)
-
             }
         })
     }
@@ -169,7 +169,7 @@ class User extends Component{
     }
 
     const comment = () => {
-        return this.state.comments.map(comment=>{
+        let comments = this.state.comments.map(comment=>{
             return (
             <div key={comment._id} className="col-12">
                 <div className="row m-1 pt-2 pb-2 border rounded">
@@ -185,6 +185,40 @@ class User extends Component{
                 </div>
             </div>)
         })
+        let orders = this.state.orders.map(order=>{
+            let firstDay = (new Date(order.date[0]))
+            let lastDay = (new Date(order.date[order.date.length -1]+86400000))
+            let begin = `${firstDay.getFullYear()}-${firstDay.getMonth()+1}-${firstDay.getDate()}`
+            let end = `${lastDay.getFullYear()}-${lastDay.getMonth()+1}-${lastDay.getDate()}`
+            let today = new Date()
+            if(!order.rank){
+                // && today>lastDay
+                return (
+                <div key={order._id} className="col-12">
+                    <div className="justify-content-center rounded" style={{background:"rgba(0,0,0,0.3", position:"absolute", height:"100%",width:"100%",left:0, zIndex:10, display:"flex", alignItems:"center"}}>
+                    <CommentForm houseId = {order.house._id} userId ={this.props.currentUser.user.id} orderId={order._id}/>
+                    </div>
+                    <div className="row m-1 pt-2 pb-2 border rounded">
+                        <div className="col-sm-4 col-6">
+                            <img className="card-img shadow" src={order.house.image} alt=""/>
+                        </div>
+                        <div className="col-sm-8 col-6">
+                            <h4>{order.house.name}</h4>
+                            <div className="m-2 p-1">
+                                from : {begin} afternoon to {end} morning
+                            </div>
+                        </div>
+                    </div>
+                </div>)
+            }else {
+                return null
+            }
+        })
+        return (
+        <div>
+            {orders}
+            {comments}
+        </div>)
     }
 
     return (

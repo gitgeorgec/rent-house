@@ -13,7 +13,7 @@ class OrderForm extends Component{
         adult:1,
         child:0,
     }
-	}
+  }
 
   handleSubmit = e =>{
 		e.preventDefault()
@@ -27,7 +27,8 @@ class OrderForm extends Component{
       accommodate: {
         adult:this.state.adult,
         child:this.state.child
-      }
+      },
+      price:this.props.select[0].price * this.props.date.length
 		}
     this.props.sendOrderRequset("post", this.props.currentUser.user.id, order)
     .then(res=>{
@@ -115,8 +116,11 @@ class OrderForm extends Component{
             <textarea name="specialRequest" type="text" className="form-control" id="specialRequest" placeholder="Special Request" onChange={this.handleChange} value={this.state.specialRequest}/>
           </div>
 					<div>
-						<Calender />
+						<Calender unavailableDate={this.props.select[0].unavailableDate}/>
 					</div>
+          <div>
+            price: {this.props.select[0].price * this.props.date.length}
+          </div>
           <div className="form-group">
             <button type="submit" className="btn btn-success form-control mt-2" >Submit</button>
           </div>
