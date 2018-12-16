@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Calender from './Calender'
+import { apiCall } from "../service/api"
 
 class OrderForm extends Component{
   constructor(props){
@@ -30,14 +31,22 @@ class OrderForm extends Component{
       },
       price:this.props.select[0].price * this.props.date.length
 		}
-    this.props.sendOrderRequset("post", this.props.currentUser.user.id, order)
-    .then(res=>{
-      if(res.customer){
-        this.setState({
-          finish:true,
-        })
-      }
-    })
+    const URL = "http://localhost:8081/"
+    apiCall("post", `${URL}api/order/${this.props.currentUser.user.id}/new`, order)
+      .then(res=>{
+        if(res.customer){
+          this.setState({
+            finish:true,
+          })
+        }else{
+          console.log(res)
+          console.log("some thing wrong")
+        }
+      })
+      .catch(err=>{
+          console.log(err)
+          return err
+      })
   }
 
   handleChange = e =>{

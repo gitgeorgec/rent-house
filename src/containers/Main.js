@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { authUser, facebookAuth } from "../store/actions/auth"
 import { addHouse, getHouse, loadHosues } from "../store/actions/house"
 import { removeError } from '../store/actions/errors'
-import { sendOrderRequset } from '../store/actions/order'
+import { updateUserHouses, updateUserOrders, updateUserComments } from '../store/actions/user'
 import { setDate } from '../store/actions/date'
 import { clearSelect } from '../store/actions/select'
 import { sendSearch } from "../store/actions/search"
@@ -29,10 +29,13 @@ const Main = props => {
         date, 
         search, 
         select, 
-        sendOrderRequset, 
         setDate,
         clearSelect,
-        sendSearch} = props
+        sendSearch,
+        updateUserHouses,
+        updateUserOrders,
+        updateUserComments,
+        user} = props
     return (
         <React.Fragment>
             <Header  currentUser ={ currentUser }/>
@@ -96,7 +99,7 @@ const Main = props => {
                                errors={ errors } 
                                currentUser={ currentUser }  
                                select={ select } 
-                               sendOrderRequset={ sendOrderRequset } {...props}/>
+                               {...props}/>
                            )
                         }else{
                             return (<Redirect to="/houses"/>)
@@ -111,6 +114,10 @@ const Main = props => {
                             currentUser={ currentUser }
                             houses = { houses }
                             loadHosues = {loadHosues}
+                            updateUserHouses ={ updateUserHouses }
+                            updateUserOrders ={ updateUserOrders }
+                            updateUserComments={ updateUserComments }
+                            user = { user }
                             {...props}/>)
                     }else{
                         return (<Redirect to="/signin"/>)
@@ -128,8 +135,20 @@ function mapStateToProps(state){
         houses: state.houses,
         date: state.date,
         search: state.search,
-        select: state.select
+        select: state.select,
+        user: state.user
     }
 }
 
-export default withRouter(connect(mapStateToProps, { authUser,facebookAuth ,removeError, addHouse, getHouse, sendOrderRequset, setDate,loadHosues, clearSelect,sendSearch})(Main))
+export default withRouter(connect(mapStateToProps, { authUser,
+    facebookAuth ,
+    removeError, 
+    addHouse, 
+    getHouse, 
+    setDate,
+    loadHosues, 
+    clearSelect,
+    sendSearch,
+    updateUserHouses,
+    updateUserOrders,
+    updateUserComments})(Main))

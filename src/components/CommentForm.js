@@ -20,7 +20,7 @@ class CommentForm extends Component{
         e.preventDefault()
         const URL = "http://localhost:8081/"
         let data = {
-            houseId:this.props.houseId,
+            houseId:this.props.house._id,
             comment:this.state.comment,
             orderId:this.props.orderId,
             rank:this.state.rank

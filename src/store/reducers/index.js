@@ -5,7 +5,7 @@ import date from "./dateReducer"
 import houses from "./houseReducer"
 import search from "./searchReducer"
 import select from "./selectReducer"
-import order from "./orderReducer"
+import user from "./userReducer"
 
 const rootReducer = combineReducers({
 	currentUser,
@@ -14,7 +14,7 @@ const rootReducer = combineReducers({
 	houses,
 	search,
 	select,
-	order
+	user
 })
 
 export default rootReducer
