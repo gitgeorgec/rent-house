@@ -140,7 +140,8 @@ function mapStateToProps(state){
     }
 }
 
-export default withRouter(connect(mapStateToProps, { authUser,
+export default withRouter(connect(mapStateToProps, 
+    { authUser,
     facebookAuth ,
     removeError, 
     addHouse, 

@@ -7,14 +7,20 @@ class CommentList extends Component{
     handleRemoveComment=(e)=>{
         const URL = "http://localhost:8081/"
         apiCall("delete",`${URL}api/comment/${this.props.currentUser.user.id}/${e.target.dataset.id}`)
-        // .then(res=>{
-        //     if(res._id){
-        //         let filterState = this.state.comments.filter(comment=>comment._id !== res._id)
-        //         this.setState({
-        //             comments:filterState
-        //         })
-        //     }
-        // })
+        .then(res=>{
+            if(res._id){
+                console.log(res)
+                let commentsData = this.props.comments.filter(comment=>comment._id !== res._id)
+                let orderData = this.props.orders.map(order=>{
+                    if(res.order === order._id){
+                        order.rank = null
+                    }
+                    return order
+                })
+                this.props.updateUserComments(commentsData)
+                this.props.updateUserOrders(orderData)
+            }
+        })
       }
 
     render(){
@@ -40,13 +46,21 @@ class CommentList extends Component{
                 let lastDay = (new Date(order.date[order.date.length -1]+86400000))
                 let begin = `${firstDay.getFullYear()}-${firstDay.getMonth()+1}-${firstDay.getDate()}`
                 let end = `${lastDay.getFullYear()}-${lastDay.getMonth()+1}-${lastDay.getDate()}`
-                let today = new Date()
+                // let today = new Date()
                 if(!order.rank){
                     // && today>lastDay
                     return (
                     <div key={order._id} className="col-12">
                         <div className="justify-content-center rounded" style={{background:"rgba(0,0,0,0.3", position:"absolute", height:"100%",width:"100%",left:0, zIndex:10, display:"flex", alignItems:"center"}}>
-                        <CommentForm house = {order.house} userId ={this.props.currentUser.user.id} orderId={order._id}/>
+                        <CommentForm 
+                        house = {order.house} 
+                        userId ={this.props.currentUser.user.id} 
+                        orderId={order._id}
+                        updateUserComments ={this.props.updateUserComments}
+                        updateUserOrders = {this.props.updateUserOrders}
+                        comments ={this.props.comments}
+                        orders = {this.props.orders}
+                        />
                         </div>
                         <div className="row m-1 pt-2 pb-2 border rounded">
                             <div className="col-sm-4 col-6">

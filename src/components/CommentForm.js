@@ -6,7 +6,7 @@ class CommentForm extends Component{
         super()
         this.state={
             comment:"",
-            rank:0
+            rank:0,
         }
     }
 
@@ -26,7 +26,19 @@ class CommentForm extends Component{
             rank:this.state.rank
         }
         apiCall("post",`${URL}api/comment/${this.props.userId}/new`,data)
-        .then(res=>console.log(res))
+        .then(res=>{
+            if(res._id){
+                let commentData = [...this.props.comments,res]
+                let orderDate = this.props.orders.map(order=>{
+                    if(order._id===this.props.orderId){
+                        order.rank = this.state.rank
+                    }
+                    return order
+                })
+                this.props.updateUserComments(commentData)
+                this.props.updateUserOrders(orderDate)
+            }
+        })
     }
     render(){
         return(
@@ -36,7 +48,7 @@ class CommentForm extends Component{
                 <button type="submit" className="btn btn-success" style={{display:"block"}}>comment</button>
             </form>
         )
-    }
+    } 
 }
 
 export default CommentForm

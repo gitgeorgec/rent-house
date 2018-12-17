@@ -7,13 +7,10 @@ class OrderList extends Component{
         const URL = "http://localhost:8081/"
         apiCall("delete",`${URL}api/order/${this.props.currentUser.user.id}/${e.target.dataset.id}`)
         .then(res=>{
-            //dispatch(User.order)
-            // if(res._id){
-            //     let filterState = this.state.orders.filter(order=>order._id !== res._id)
-            //     this.setState({
-            //         orders:filterState
-            //     })
-            // }
+            if(res._id){
+                let orderData = this.props.orders.filter(order=>order._id !== res._id)
+                this.props.updateUserOrders(orderData)
+            }
         })
       }
 

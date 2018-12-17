@@ -55,7 +55,7 @@ class User extends Component{
     return (
         <div className="row mx-auto container mt-2 shadow" style={{position:"relative", fontWeight:"bolder"}}>  
                 <nav className="nav nav-tabs" id="nav-tab" role="tablist" style={{width:"100%", fontSize:"1rem"}}>
-                    <div className="nav-item nav-link" data-toggle="tab" onClick={this.handlePageChange}>user</div>
+                    <div className="nav-item nav-link active" data-toggle="tab" onClick={this.handlePageChange}>user</div>
                     <div className="nav-item nav-link" data-toggle="tab" onClick={this.handlePageChange}>order</div>
                     <div className="nav-item nav-link" data-toggle="tab" onClick={this.handlePageChange}>house</div>
                     <div className="nav-item nav-link" data-toggle="tab" onClick={this.handlePageChange}>comment</div>
@@ -63,13 +63,24 @@ class User extends Component{
             <main style={{width:"100%",minHeight:"80vh"}}>
                 {this.state.page==="user"?user():""}
                 {this.state.page==="order"?
-                <UserOrderList orders = {this.props.user.orders} currentUser={this.props.currentUser}/>
+                <UserOrderList 
+                orders = {this.props.user.orders} 
+                currentUser={this.props.currentUser}
+                updateUserOrders= {this.props.updateUserOrders}/>
                 :""}
                 {this.state.page==="house"?
-                <UserHouseList houses = {this.props.user.houses} currentUser={this.props.currentUser}/>
+                <UserHouseList 
+                houses = {this.props.user.houses} 
+                currentUser={this.props.currentUser}
+                updateUserHouses ={this.props.updateUserHouses}/>
                 :""}
                 {this.state.page==="comment"?
-                <UserCommentList comments = {this.props.user.comments} orders = {this.props.user.orders} currentUser={this.props.currentUser}/>
+                <UserCommentList 
+                comments = {this.props.user.comments} 
+                orders = {this.props.user.orders} 
+                currentUser={this.props.currentUser}
+                updateUserComments = {this.props.updateUserComments}
+                updateUserOrders= {this.props.updateUserOrders}/>
                 :""}
             </main>
         </div>

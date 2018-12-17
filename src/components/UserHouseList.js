@@ -6,16 +6,12 @@ class HouseList extends Component{
     handleRemoveHouse = (e) =>{
         const URL = "http://localhost:8081/"
         apiCall("delete",`${URL}api/user/${this.props.currentUser.user.id}/house/${e.target.dataset.id}`)
-        // .then(res=>{
-        //     if(res._id){
-        //         let houseData = this.props.houses.data.filter(house=>house._id !== res._id)
-        //         this.props.loadHosues(houseData)
-        //         let filterState = this.state.houses.filter(house=>house._id !== res._id)
-        //         this.setState({
-        //             houses:filterState
-        //         })
-        //     }
-        // })
+        .then(res=>{
+            if(res._id){
+                let houseData = this.props.houses.filter(house=>house._id !== res._id)
+                this.props.updateUserHouses(houseData)
+            }
+        })
     }
 
     render(){
