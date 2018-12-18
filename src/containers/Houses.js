@@ -50,15 +50,18 @@ class Houses extends Component {
             <GoogleMap />
           </div> */}
         </div>
-          <h1 className="text-center">{!this.props.houses.loading&&this.props.houses.data.length === 0?"NOT FOUND":"Found Houses"}</h1>
+          <h1 className="text-center">{!this.props.houses.loading&&this.props.houses.data.length === 0?"NOT FOUND":""}</h1>
           <hr/>
           <div className="row justify-content-center">
-            {this.props.houses.loading?<div className="lds-facebook"><div></div><div></div><div></div></div>:
-            <div className="card-columns" style={{minHeight:"80vh"}}>
+            {this.props.houses.loading?
+            <div className="lds-facebook"><div></div><div></div><div></div></div>
+            :<div className="card-columns" style={{minHeight:"80vh"}}>
               <HouseList houses={this.props.houses.data}/>
             </div>
             }
           </div>
+          <hr/>
+          next page
         </div>
       </React.Fragment>
     )}

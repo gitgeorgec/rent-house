@@ -1,6 +1,6 @@
 import React, { Component } from 'react'; 
 import Calender from './Calender'
-import GoogleMap from './GoogleMap'
+// import GoogleMap from './GoogleMap'
 
 class Post extends Component {
 	constructor(props){
@@ -15,13 +15,7 @@ class Post extends Component {
 			unavailableDate:[],
 		}
 	}
-
-    // UNSAFE_componentWillReceiveProps(nextProps){
-    //     this.setState({available:nextProps.date})
-    // }
-    // static getDerivedStateFromProps(nextProps){
-    //     return {unavailableDate:nextProps.date}
-    // }
+	
 	componentWillMount(){
 		this.props.sendSearch([])
 	}

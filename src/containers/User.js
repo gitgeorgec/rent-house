@@ -3,6 +3,7 @@ import UserOrderList from "../components/UserOrderList"
 import UserCommentList from "../components/UserCommentList"
 import UserHouseList from "../components/UserHouseList"
 import { apiCall } from "../service/api"
+import UserCard from '../components/UserCard'
 
 class User extends Component{
   constructor(props){
@@ -29,28 +30,28 @@ class User extends Component{
   }
 
   render(){
-    const user = () =>{
-        return (
-        <div className="row">
-            <div className="col-md-3" style={{maxWidth:"150px", borderRadius:"50%"}}>
-                <img src={this.props.currentUser.user.profileImageUrl ||`https://robohash.org/${this.props.currentUser.user.id}?size=200x200`} alt="profileImageUrl" style={{width:"100%", borderRadius:"50%"}}/>
-            </div>
-            <div className="col-md-9 p-2" style={{fontSize:"1rem"}}>
-                <table>
-                <tbody>
-                    <tr>
-                        <td>Username:</td>
-                        <td> {this.props.currentUser.user.username}</td>
-                    </tr>
-                    <tr>
-                        <td className="text-right">email:</td>
-                        <td> {this.props.currentUser.user.email}</td>
-                    </tr>
-                </tbody>
-                </table>
-            </div>
-        </div>)
-    }
+    // const user = () =>{
+    //     return (
+    //     <div className="row">
+    //         <div className="col-md-3" style={{maxWidth:"150px", borderRadius:"50%"}}>
+    //             <img src={this.props.currentUser.user.profileImageUrl ||`https://robohash.org/${this.props.currentUser.user.id}?size=200x200`} alt="profileImageUrl" style={{width:"100%", borderRadius:"50%"}}/>
+    //         </div>
+    //         <div className="col-md-9 p-2" style={{fontSize:"1rem"}}>
+    //             <table>
+    //             <tbody>
+    //                 <tr>
+    //                     <td>Username:</td>
+    //                     <td> {this.props.currentUser.user.username}</td>
+    //                 </tr>
+    //                 <tr>
+    //                     <td className="text-right">email:</td>
+    //                     <td> {this.props.currentUser.user.email}</td>
+    //                 </tr>
+    //             </tbody>
+    //             </table>
+    //         </div>
+    //     </div>)
+    // }
 
     return (
         <div className="row mx-auto container mt-2 shadow" style={{position:"relative", fontWeight:"bolder"}}>  
@@ -61,7 +62,10 @@ class User extends Component{
                     <div className="nav-item nav-link" data-toggle="tab" onClick={this.handlePageChange}>comment</div>
                 </nav>
             <main style={{width:"100%",minHeight:"80vh"}}>
-                {this.state.page==="user"?user():""}
+                {this.state.page==="user"?
+                // user()
+                <UserCard user={this.props.currentUser.user}/>
+                :""}
                 {this.state.page==="order"?
                 <UserOrderList 
                 orders = {this.props.user.orders} 

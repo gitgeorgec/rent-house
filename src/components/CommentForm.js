@@ -44,7 +44,7 @@ class CommentForm extends Component{
         return(
             <form onSubmit={this.handleSubmitComment} >
                 <textarea name="comment" onChange={this.handleChange} id="" value={this.state.comment}/>
-                <input type="range" name="rank" onChange={this.handleChange} value={this.state.rank}/>
+                <input type="range" name="rank" onChange={this.handleChange} value={this.state.rank}  min="1" max="100"/>
                 <button type="submit" className="btn btn-success" style={{display:"block"}}>comment</button>
             </form>
         )

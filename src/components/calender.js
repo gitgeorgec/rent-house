@@ -247,6 +247,7 @@ class Calender extends Component {
 				return {...i,select:false}
 			})
 		this.setState({
+			firstClick:true,
 			dateData
 		})
 	}
@@ -281,8 +282,10 @@ class Calender extends Component {
 					<div className="d-flex justify-content-around">{this.createElem(this.state.dataIndicate).filter((date,i)=>i>20&&i<28)}</div>
 					<div className="d-flex justify-content-around">{this.createElem(this.state.dataIndicate).filter((date,i)=>i>27&&i<35)}</div>
 					<div className="d-flex justify-content-around">{this.createElem(this.state.dataIndicate).filter((date,i)=>i>34&&i<42)}</div>
+					{this.props.unselectable?
+					<div style={{width:"100%", height:"100%",position:"absolute",background:"rgba(0,0,0,0)"}}></div>:null}
 				</div>
-				<div className="btn btn-warning" onClick={this.handleClear.bind(this)}>clear</div>
+				{this.props.unselectable?"":<div className="btn btn-warning" onClick={this.handleClear.bind(this)}>clear</div>}
 			</div>
 		);
 	}

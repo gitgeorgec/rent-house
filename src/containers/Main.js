@@ -92,13 +92,14 @@ const Main = props => {
                 }} />
                 <Route exact path="/houses/order" render={props=>{
                     if(currentUser.isAuthenticated){
-                        if(select.length>0){
+                        if(select.name){
                             return (
                                <OrderForm date={ date } 
                                removeError={ removeError } 
                                errors={ errors } 
                                currentUser={ currentUser }  
                                select={ select } 
+                               clearSelect = { clearSelect }
                                {...props}/>
                            )
                         }else{
