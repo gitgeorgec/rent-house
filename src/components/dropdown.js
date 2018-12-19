@@ -15,7 +15,7 @@ class Dropdown extends Component {
         <div className="collapse navbar-collapse justify-content-end" id="Dropdown">
             <ul className="navbar-nav" style={{color:"#fff"}}>
                     <li className="nav-item" style={{marginLeft:"1rem"}}>
-                        <NavLink exact className="nav-link" to="/Houses">
+                        <NavLink exact className="nav-link" to="/houses">
                         <i className="fas fa-search"></i> search
                         </NavLink>
                     </li>

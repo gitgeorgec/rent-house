@@ -10,7 +10,7 @@ const Index = () => {
 	const LondonGeo = {lat:51.5285578,lng:-0.2420232}
 	const TaipeiGeo = {lat:25.0171605,lng:121.3659506}
     return (
-			<React.Fragment>
+			<div className="position-relative" style={{top:"70px"}}>
 				<Jumbo />
 				<br />
 				<div className="container mx-auto position-relative shadow">
@@ -24,7 +24,7 @@ const Index = () => {
 				</div>
 				<br />				
 				<br />
-			</React.Fragment>
+			</div>
     );
 }
 

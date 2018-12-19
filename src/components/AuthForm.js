@@ -45,7 +45,7 @@ class AuthForm extends Component{
       removeError()
     })
     return (
-      <div className="col-md-6 mx-auto">
+      <div className="col-md-6 mx-auto" style={{position:"relative", top:"70px"}}>
         <h1 className="text-center">{heading}</h1>
         {errors.message && <div className="alert alert-danger">{errors.message}</div>}
         <form className="col-md-9 mx-auto col-sm-12" onSubmit={this.handleSubmit.bind(this)}>

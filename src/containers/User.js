@@ -54,7 +54,7 @@ class User extends Component{
     // }
 
     return (
-        <div className="row mx-auto container mt-2 shadow" style={{position:"relative", fontWeight:"bolder"}}>  
+        <div className="row mx-auto container shadow" style={{position:"relative", fontWeight:"bolder",top:"90px"}}>  
                 <nav className="nav nav-tabs" id="nav-tab" role="tablist" style={{width:"100%", fontSize:"1rem"}}>
                     <div className="nav-item nav-link active" data-toggle="tab" onClick={this.handlePageChange}>user</div>
                     <div className="nav-item nav-link" data-toggle="tab" onClick={this.handlePageChange}>order</div>

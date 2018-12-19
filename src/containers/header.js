@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 class Header extends Component {
     render() {
       return (
-        <header className="back_purple" >
+        <header className="back_purple position-fixed" style={{width:"100%", zIndex:100}}>
             <nav className="navbar navbar-expand-lg navbar-light">
                 <NavLink className="navbar-brand" to="/">
                     <h2 style={{color:"#fff"}}><i className="fas fa-home"></i>Rent House</h2>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { apiCall } from "../service/api"
+import OrderCard from "../components/OrderCard"
 
 class OrderList extends Component{
 
@@ -22,24 +23,32 @@ class OrderList extends Component{
             let end = `${lastDay.getFullYear()}-${lastDay.getMonth()+1}-${lastDay.getDate()}`
             if(order.house){
                 return (
-                <div key={order._id} className="col-12">
-                    <div className="row m-1 pt-2 pb-2 border rounded">
-                        <div className="col-sm-4 col-6">
-                            <img className="card-img shadow" src={order.house.image} alt=""/>
-                        </div>
-                        <div className="col-sm-8 col-6">
-                            <h4>{order.house.name}&nbsp;</h4>
-                            Address: {order.house.address} <br/>
-                            Price: ${order.price}
-                            <div className="m-2 p-1">
-                                <span className="float-right d-inline-block">
-                                from : {begin} afternoon to {end} morning
-                                <div className="btn btn-danger" data-id={order._id} onClick={this.handleCancelOrder}>cancel</div>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>)
+                // <div key={order._id} className="col-12">
+                //     <div className="row m-1 pt-2 pb-2 border rounded">
+                //         <div className="col-sm-4 col-6">
+                //             <img className="card-img shadow" src={order.house.image} alt=""/>
+                //         </div>
+                //         <div className="col-sm-8 col-6">
+                //             <h4>{order.house.name}&nbsp;</h4>
+                //             Address: {order.house.address} <br/>
+                //             Price: ${order.price}
+                //             <div className="m-2 p-1">
+                //                 <span className="float-right d-inline-block">
+                //                 from : {begin} afternoon to {end} morning
+                //                 <div className="btn btn-danger" data-id={order._id} onClick={this.handleCancelOrder}>cancel</div>
+                //                 </span>
+                //             </div>
+                //         </div>
+                //     </div>
+                // </div>
+                <OrderCard
+                    key= {order._id}
+                    begin = {begin}
+                    end = {end}
+                    order = {order}
+                    handleCancelOrder = {this.handleCancelOrder}
+                />
+                )
             }else {
                 return (
                 <div key={order._id} className="col-12">

@@ -18,6 +18,15 @@ class OrderForm extends Component{
     }
   }
 
+  // componentWillMount(){
+  //   const houseId = window.location.href.split("/")[window.location.href.split("/").length-1]
+  //   const URL = "http://localhost:8081/"
+  //   apiCall("get", `${URL}api/house/${houseId}`)
+  //   .then(res=>{
+  //     this.props.selectHouse(res)
+  //   })
+  // }
+
   componentDidMount(){
     this.setState({
       error:""
@@ -88,7 +97,9 @@ class OrderForm extends Component{
   }
   
   handleLeave= ()=>{
+    this.props.sendSearch({})
     this.props.clearSelect()
+    this.props.setDate([])
   }
 	
   render(){
@@ -97,15 +108,15 @@ class OrderForm extends Component{
       removeError()
     })
     return (
-      <div className="row container mx-auto">
+      <div className="row container mx-auto position-relative" style={{top:"70px"}}>
       <div className="col-12" >
         <h1 className="text-center">{this.props.select.name}</h1><hr/>
       </div>
       {this.state.error.length>0?<div className="alert alert-danger position-absolute" style={{zIndex:10, top:0, width:"100vw"}}>{this.state.error}</div>:""}
       {this.state.finish?
-      <div style={{width:"100vw", height:"100vh", position:"fixed", zIndex:"200",display:"flex", background:"rgba(0,0,0,0.6)",justifyContent:"center", left:0, fontSize:"1.2rem", fontWeight:"bolder"}}>
+      <div style={{width:"100vw", height:"100vh", position:"fixed", zIndex:"200",display:"flex", background:"rgba(0,0,0,0.6)",justifyContent:"center", left:0, fontSize:"1.2rem", fontWeight:"bolder",alignItems:"center"}}>
         <div>success <br/> 
-        <Link to="/" style={{color:"#fff"}} onClick={this.handleLeave}>back home page</Link>
+        <Link to="/" style={{color:"#fff"}} onClick={this.handleLeave}>back home page</Link> <br/>
         <Link to="/user" style={{color:"#fff"}} onClick={this.handleLeave}>see my order</Link>
         </div>
       </div>:""}

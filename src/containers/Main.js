@@ -6,7 +6,7 @@ import { addHouse, getHouse, loadHosues } from "../store/actions/house"
 import { removeError } from '../store/actions/errors'
 import { updateUserHouses, updateUserOrders, updateUserComments } from '../store/actions/user'
 import { setDate } from '../store/actions/date'
-import { clearSelect } from '../store/actions/select'
+import { selectHouse, clearSelect } from '../store/actions/select'
 import { sendSearch } from "../store/actions/search"
 import Index from './Index'
 import AuthForm from '../components/AuthForm'
@@ -30,6 +30,7 @@ const Main = props => {
         search, 
         select, 
         setDate,
+        selectHouse,
         clearSelect,
         sendSearch,
         updateUserHouses,
@@ -90,7 +91,7 @@ const Main = props => {
                         signUp {...props}/>
                     )
                 }} />
-                <Route exact path="/houses/order" render={props=>{
+                <Route exact path="/houses/order/:id" render={props=>{
                     if(currentUser.isAuthenticated){
                         if(select.name){
                             return (
@@ -98,8 +99,11 @@ const Main = props => {
                                removeError={ removeError } 
                                errors={ errors } 
                                currentUser={ currentUser }  
-                               select={ select } 
+                               select={ select }
+                               selectHouse ={ selectHouse }
                                clearSelect = { clearSelect }
+                               sendSearch = { sendSearch }
+                               setDate ={ setDate }
                                {...props}/>
                            )
                         }else{
@@ -148,7 +152,8 @@ export default withRouter(connect(mapStateToProps,
     addHouse, 
     getHouse, 
     setDate,
-    loadHosues, 
+    loadHosues,
+    selectHouse,
     clearSelect,
     sendSearch,
     updateUserHouses,

@@ -21,12 +21,17 @@ class ShowHouse extends Component {
         })
     }
 
-    handleClear=(e)=>{
+    handleClear=()=>{
         this.props.clearSelect()
     }
 
     handleOrder=()=>{
-        this.props.history.push("/houses/order")
+        this.props.history.push("/houses/order/"+this.props.select._id)
+        // window.open("./houses/order/"+this.props.select._id)
+    }
+    
+    handleStopPropagation=(e)=>{
+        e.stopPropagation()
     }
 
 	render(){
@@ -39,8 +44,10 @@ class ShowHouse extends Component {
                 height:this.props.select.name?"100vh":0,
                 opacity:this.props.select.name?1:0, 
                 top:"0%",
-                overflow:"scroll"}}>
-                <div className="row p-3 m-3 mx-auto container position-relative" style={{background:"white", minHeight:"90vh", zIndex:"300"}}>
+                overflow:"scroll"}}
+                onClick={this.handleClear}>
+                <div className="row p-3 m-3 mx-auto container position-relative" style={{background:"white", minHeight:"90vh", zIndex:"300"}}
+                onClick={this.handleStopPropagation}>
                     <h2 className="col-12" style={{fontWeight:"bolder"}}>{this.props.select?this.props.select.name:""}</h2>
                     <span className="position-absolute btn btn-danger border rounded" style={{right:"15px"}} onClick={this.handleClear}>X</span>
                     <hr/>
@@ -53,14 +60,15 @@ class ShowHouse extends Component {
                         <div style={{width:'100%', minHeight:"300px", height:"100%"}}>
                             <GoogleMapReact
                             // bootstrapURLKeys={{ key:"AIzaSyAjQDTCdLCWo2JBZiosUYNEox7R92t_Ts4"}}
-                            defaultCenter={{
-                                lat: 25.0171194,
-                                lng: 121.4710123
-                            }}
-                            center={this.props.select.name?this.props.select.geometry:{
-                                lat: 22.0171194,
-                                lng: 123.4710123
-                            }}
+                            // defaultCenter={{
+                            //     lat: 25.0171194,
+                            //     lng: 121.4710123
+                            // }}
+                            center={
+                            // this.props.select.name?
+                            this.props.select.geometry
+                            // :{lat: 22.0171194,lng: 123.4710123}
+                            }
                             defaultZoom={17}>
                                 {this.props.select.name?
                                 <Marker
