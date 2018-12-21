@@ -50,7 +50,7 @@ render(){
 		removeError()
 	})
 	return(
-		<div className="container">
+		<div className="container" style={{position:"relative",top:"90px"}}>
 		{errors.message && <div className="alert alert-danger">{errors.message}</div>}
 			<h1>Post House</h1>
 			<div className="row">

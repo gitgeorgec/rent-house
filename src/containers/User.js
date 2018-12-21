@@ -3,7 +3,7 @@ import UserOrderList from "../components/UserOrderList"
 import UserCommentList from "../components/UserCommentList"
 import UserHouseList from "../components/UserHouseList"
 import { apiCall } from "../service/api"
-import UserCard from '../components/UserCard'
+import UserProfile from '../components/UserProfile'
 
 class User extends Component{
   constructor(props){
@@ -30,29 +30,6 @@ class User extends Component{
   }
 
   render(){
-    // const user = () =>{
-    //     return (
-    //     <div className="row">
-    //         <div className="col-md-3" style={{maxWidth:"150px", borderRadius:"50%"}}>
-    //             <img src={this.props.currentUser.user.profileImageUrl ||`https://robohash.org/${this.props.currentUser.user.id}?size=200x200`} alt="profileImageUrl" style={{width:"100%", borderRadius:"50%"}}/>
-    //         </div>
-    //         <div className="col-md-9 p-2" style={{fontSize:"1rem"}}>
-    //             <table>
-    //             <tbody>
-    //                 <tr>
-    //                     <td>Username:</td>
-    //                     <td> {this.props.currentUser.user.username}</td>
-    //                 </tr>
-    //                 <tr>
-    //                     <td className="text-right">email:</td>
-    //                     <td> {this.props.currentUser.user.email}</td>
-    //                 </tr>
-    //             </tbody>
-    //             </table>
-    //         </div>
-    //     </div>)
-    // }
-
     return (
         <div className="row mx-auto container shadow" style={{position:"relative", fontWeight:"bolder",top:"90px"}}>  
                 <nav className="nav nav-tabs" id="nav-tab" role="tablist" style={{width:"100%", fontSize:"1rem"}}>
@@ -63,8 +40,7 @@ class User extends Component{
                 </nav>
             <main style={{width:"100%",minHeight:"80vh"}}>
                 {this.state.page==="user"?
-                // user()
-                <UserCard user={this.props.currentUser.user}/>
+                <UserProfile user={this.props.currentUser.user}/>
                 :""}
                 {this.state.page==="order"?
                 <UserOrderList 

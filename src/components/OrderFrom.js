@@ -72,6 +72,9 @@ class OrderForm extends Component{
       })
       .catch(err=>{
           console.log(err)
+          this.setState({
+            error:err.error.message
+          })
           return err
       })
   }
@@ -101,86 +104,88 @@ class OrderForm extends Component{
     this.props.clearSelect()
     this.props.setDate([])
   }
-	
+
+  handleClear=()=>{
+    this.props.clearSelect()
+}
+  
+  handleStopPropagation=(e)=>{
+    e.stopPropagation()
+  }
   render(){
-    const {heading, errors, history, removeError} = this.props
-    history.listen(() => {
-      removeError()
-    })
     return (
-      <div className="row container mx-auto position-relative" style={{top:"70px"}}>
-      <div className="col-12" >
-        <h1 className="text-center">{this.props.select.name}</h1><hr/>
+      <div className="row container mx-auto position-relative" style={{top:"40px", background:"#fff"}} onClick={this.handleStopPropagation}>
+      <button className="btn btn-danger rounded" style={{position:"absolute",right:0}} onClick={this.handleClear}>X</button>
+      <div className="col-12">
+      <h1 className="text-center">{this.props.select.name}</h1>
+        <hr/>
       </div>
-      {this.state.error.length>0?<div className="alert alert-danger position-absolute" style={{zIndex:10, top:0, width:"100vw"}}>{this.state.error}</div>:""}
+      {this.state.error && <div className="alert alert-danger col-12" style={{zIndex:10, top:0, width:"100vw"}}>{this.state.error}</div>}
       {this.state.finish?
-      <div style={{width:"100vw", height:"100vh", position:"fixed", zIndex:"200",display:"flex", background:"rgba(0,0,0,0.6)",justifyContent:"center", left:0, fontSize:"1.2rem", fontWeight:"bolder",alignItems:"center"}}>
-        <div>success <br/> 
-        <Link to="/" style={{color:"#fff"}} onClick={this.handleLeave}>back home page</Link> <br/>
-        <Link to="/user" style={{color:"#fff"}} onClick={this.handleLeave}>see my order</Link>
+      <div style={{width:"100vw", height:"100vh", position:"fixed", zIndex:"200",display:"flex", background:"rgba(0,0,0,0.6)",justifyContent:"center", left:0,top:0, fontSize:"1.2rem", fontWeight:"bolder",alignItems:"center"}}>
+        <div className="text-center" style={{fontSize:"2rem",color:"#fff"}}>success <br/> 
+        <Link to="/" onClick={this.handleLeave}><span className="btn btn-info">back home page</span></Link> <br/>
+        <Link to="/user" onClick={this.handleLeave}><span className="btn btn-secondary">see my order</span></Link>
         </div>
       </div>:""}
-				<div className="col-md-6">
-					<img src={this.props.select.image} alt="" style={{width:"100%",maxHeight:"50vh"}}/>
+				<div className="col-md-10 mx-auto">
+					{/* <img src={this.props.select.image} alt="" style={{width:"100%",maxHeight:"50vh"}}/> */}
           <div className="text-center" style={{fontSize:"2rem", fontWeight:"bolder"}}>
             PRICE: {this.props.select.price * this.props.date.length} <br/>
             TOTAL {this.props.date.length} NIGHT <br/>
             ACCOMMODATE {parseInt(this.state.adult)+parseInt(this.state.child)} / {this.props.select.accommodate}
           </div>
+          <form  onSubmit={this.handleSubmit.bind(this)}>
+            <div className="form-group">
+              <label htmlFor="Email">Email Address</label>
+              <span className="float-right">
+                <input type="checkbox" id="CheckSame" onChange={this.handleSelect} checked={this.state.same}/>
+                <label className="form-check-label" htmlFor="CheckSame">Same as My account</label>
+              </span>
+              <input name="email" type="email" className="form-control" id="Email" placeholder="Enter email" onChange={this.handleChange} value={this.state.email} readOnly={this.state.same}/>
+            </div>
+            <div className="form-group">
+              <label htmlFor="Phone">Phone Number</label>
+              <input name="phone" type="text" className="form-control" id="Phone" placeholder="Phone Number" onChange={this.handleChange} value={this.state.phone}/>
+            </div>
+            <div className="form-row">
+              <div className="form-group col-6">
+                <label htmlFor="adultNum">Adult</label>
+                <select className="form-control" id="adultNum" name="adult" onChange={this.handleChange} value={this.state.adult}>
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                  <option>6</option>
+                </select>
+              </div>
+              <div className="form-group col-6">
+                <label htmlFor="childrenNum">Child</label>
+                <select className="form-control" id="childrenNum" name="child" onChange={this.handleChange}>
+                  <option>0</option>
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                  <option>6</option>
+                </select>
+              </div>
+            </div>
+            <div className="form-group">
+              <label htmlFor="Phone">Special Request</label>
+              <textarea name="specialRequest" type="text" className="form-control" id="specialRequest" placeholder="Special Request" onChange={this.handleChange} value={this.state.specialRequest}/>
+            </div>
+            <div>
+              <Calender unavailableDate={this.props.select.unavailableDate}/>
+            </div>
+
+            <div className="form-group">
+              <button type="submit" className="btn btn-success form-control mt-2" >SEND OREDR</button>
+            </div>
+          </form>
 				</div>
-        <h1 className="text-center">{heading}</h1>
-
-        <form className="col-md-6 col-sm-12" onSubmit={this.handleSubmit.bind(this)}>
-          <div className="form-group">
-            <label htmlFor="Email">Email Address</label>
-            <span className="float-right">
-              <input type="checkbox" id="CheckSame" onChange={this.handleSelect} checked={this.state.same}/>
-              <label className="form-check-label" htmlFor="CheckSame">Same as My account</label>
-            </span>
-            <input name="email" type="email" className="form-control" id="Email" placeholder="Enter email" onChange={this.handleChange} value={this.state.email} readOnly={this.state.same}/>
-          </div>
-          <div className="form-group">
-            <label htmlFor="Phone">Phone Number</label>
-            <input name="phone" type="text" className="form-control" id="Phone" placeholder="Phone Number" onChange={this.handleChange} value={this.state.phone}/>
-          </div>
-          <div className="form-row">
-            <div className="form-group col-6">
-              <label htmlFor="adultNum">Adult</label>
-              <select className="form-control" id="adultNum" name="adult" onChange={this.handleChange} value={this.state.adult}>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
-              </select>
-            </div>
-            <div className="form-group col-6">
-              <label htmlFor="childrenNum">Child</label>
-              <select className="form-control" id="childrenNum" name="child" onChange={this.handleChange}>
-                <option>0</option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
-              </select>
-            </div>
-          </div>
-          <div className="form-group">
-            <label htmlFor="Phone">Special Request</label>
-            <textarea name="specialRequest" type="text" className="form-control" id="specialRequest" placeholder="Special Request" onChange={this.handleChange} value={this.state.specialRequest}/>
-          </div>
-					<div>
-						<Calender unavailableDate={this.props.select.unavailableDate}/>
-					</div>
-
-          <div className="form-group">
-            <button type="submit" className="btn btn-success form-control mt-2" >SEND OREDR</button>
-            {errors.message && <div className="alert alert-danger">{errors.message}</div>}
-          </div>
-        </form>
       </div>
     )
   }

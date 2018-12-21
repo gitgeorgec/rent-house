@@ -19,11 +19,11 @@ class Dropdown extends Component {
                         <i className="fas fa-search"></i> search
                         </NavLink>
                     </li>
-                    <li className="nav-item" style={{marginLeft:"1rem"}}>
+                    {/* <li className="nav-item" style={{marginLeft:"1rem"}}>
                         <NavLink exact className="nav-link" to="/about">
                         <i className="fas fa-book"></i> About
                         </NavLink>
-                    </li>
+                    </li> */}
                 {this.props.currentUser.isAuthenticated?
                 <React.Fragment>
                     <li className="nav-item" style={{marginLeft:"1rem"}}>

@@ -42,11 +42,18 @@ class CommentForm extends Component{
     }
     render(){
         return(
+            <div className="col-12 mt-1 p-0" style={this.props.show?{transition:"0.2s",transformOrigin:"top"}:{height:0,transform:"scaleY(0)",transition:"0.2s"}}>
+                <h3>comment <button className="btn btn-danger float-right rounded" style={{display:"block"}} onClick={this.props.handleShowCommetFrom}>X</button></h3>
+                
             <form onSubmit={this.handleSubmitComment} >
-                <textarea name="comment" onChange={this.handleChange} id="" value={this.state.comment}/>
-                <input type="range" name="rank" onChange={this.handleChange} value={this.state.rank}  min="1" max="100"/>
-                <button type="submit" className="btn btn-success" style={{display:"block"}}>comment</button>
+                <textarea rows="10" style={{boxSize:"border-box", width:"100%"}} name="comment" onChange={this.handleChange} id="" value={this.state.comment}/>
+                <div>
+                    <h1>rate :{this.state.rank}</h1>
+                    <input type="range" name="rank" onChange={this.handleChange} value={this.state.rank}  min="1" max="100"/>
+                    <button type="submit" className="btn btn-success float-right" style={{display:"block"}}>comment</button>
+                </div>
             </form>
+            </div>
         )
     } 
 }

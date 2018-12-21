@@ -2,31 +2,15 @@ import React, { Component } from 'react';
 import HouseList from './HouseList'
 import MainForm from '../components/Mainform'
 import Calender from '../components/Calender';
-import ShowHouse from '../components/ShowHouse'
-// import GoogleMap from '../components/GoogleMap';
 import GoogleMapReact from 'google-map-react';
 import Marker from '../components/Marker'
 class Houses extends Component {
-  // constructor(){
-  //   super()
-  //   this.state={
-  //     showFrom:false
-  //   }
-  // }
 
   componentWillMount(){
     this.props.getHouse("",{...this.props.search, date:[...this.props.date]})
     this.props.clearSelect()
-    // this.setState({
-    //   showFrom:false
-    // })
   }
 
-  // handleShowFrom=()=>{
-  //   this.setState({
-  //     showFrom:!this.state.showFrom
-  //   })
-  // }
 
   render() {
     return (
@@ -95,7 +79,6 @@ class Houses extends Component {
                     }):""}
             </GoogleMapReact>
           </div>
-          <ShowHouse {...this.props}/>
         </div>
       </div>
     )}

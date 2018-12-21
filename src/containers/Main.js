@@ -14,6 +14,7 @@ import Header from './Header'
 import Houses from './Houses'
 import PostForm from '../components/PostForm'
 import OrderForm from '../components/OrderFrom'
+import ShowHouse from '../components/ShowHouse'
 import User from './User'
 
 const Main = props => {
@@ -46,6 +47,17 @@ const Main = props => {
                 <Route exact path="/houses" render={props=>{
                     return (
                         <Houses 
+                        search = { search }
+                        date= { date } 
+                        getHouse = { getHouse } 
+                        houses = { houses }
+                        clearSelect = { clearSelect }
+                        {...props}/>
+                    )
+                }}/>
+                <Route exact path="/houses/:id" render={props=>{
+                    return (
+                        <ShowHouse 
                         search = { search }
                         date= { date } 
                         getHouse = { getHouse } 

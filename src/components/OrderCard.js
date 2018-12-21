@@ -18,8 +18,9 @@ class Orderpage extends Component{
 	
   render(){
     const { order, begin, end, handleCancelOrder} = this.props
+    const today = new Date()
     return (
-      <div className="col-12 m-1 pt-2 pb-2 rounded border ">
+      <div className="col-12 m-1 pt-2 pb-2 rounded border" style={today>this.props.lastDay?{opacity:"0.5"}:{}}>
       <h2 style={{fontWeight:"bold"}}>{order.house.name} <span style={{fontSize:"0.8rem"}}>ORDERNUMBER: {order._id}</span></h2>
       <hr/>
           <div className="row">
@@ -65,7 +66,7 @@ class Orderpage extends Component{
                   {this.state.show?
                     <div className="d-flex p-0 justify-content-between col-12">
                       <div className="btn btn-info" onClick={this.handleShowMore}>show less</div>
-                      <div className="btn btn-danger" data-id={order._id} onClick={handleCancelOrder}>cancel</div>
+                      {today<this.props.lastDay && <div className="btn btn-danger" data-id={order._id} onClick={handleCancelOrder}>cancel</div>}
                     </div>
                   :<div className="btn btn-info" data-id={order._id} onClick={this.handleShowMore}>show more</div>
                   }

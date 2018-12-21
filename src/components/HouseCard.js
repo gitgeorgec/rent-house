@@ -1,15 +1,9 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux'
-import { selectHouse, clearSelect } from '../store/actions/select'
 
 class Card extends Component {
     
     handleClick=()=>{
-        this.props.selectHouse(this.props.house)
-    }
-
-    handleClear=()=>{
-        this.props.clearSelect()
+        window.open("./houses/"+this.props.house._id)
     }
 
     render(){
@@ -30,10 +24,4 @@ class Card extends Component {
     }
 }
 
-function mapStateToProps(state) {
-	return {
-		select: state.select
-	}
-}
-
-export default connect(mapStateToProps,{ selectHouse,clearSelect })(Card)
+export default (Card)

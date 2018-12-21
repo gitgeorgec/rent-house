@@ -27,7 +27,8 @@ class HouseList extends Component{
                         Address: {house.address} <br/>
                         Price: ${house.price}
                         <div className="m-2 p-1">
-                            <div className="btn btn-danger" data-id={house._id} onClick={this.handleRemoveHouse}>DELETE</div>
+                            <div className="btn btn-info" data-id={house._id} >SHOW MORE</div>
+                            {/* <div className="btn btn-danger" data-id={house._id} onClick={this.handleRemoveHouse}>DELETE</div> */}
                         </div>
                     </div>
                 </div>

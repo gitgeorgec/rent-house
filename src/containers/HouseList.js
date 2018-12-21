@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import HouseCard from '../components/HouseCard'
 
 class HouseList extends Component {
+
     render() {
         const houseList = (houses)=>{
             let arr=[]
