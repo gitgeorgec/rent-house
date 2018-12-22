@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { apiCall } from "../service/api"
+import { apiCall, URL } from "../service/api"
 
 class CommentForm extends Component{
     constructor(){
@@ -18,7 +18,6 @@ class CommentForm extends Component{
 
     handleSubmitComment=(e)=>{
         e.preventDefault()
-        const URL = "http://localhost:8081/"
         let data = {
             houseId:this.props.house._id,
             comment:this.state.comment,

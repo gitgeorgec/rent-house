@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Calender from './Calender'
-import { apiCall } from "../service/api"
+import { apiCall,URL } from "../service/api"
 import { Link } from 'react-router-dom'
 
 class OrderForm extends Component{
@@ -57,8 +57,7 @@ class OrderForm extends Component{
         child:this.state.child
       },
       price:this.props.select.price * this.props.date.length
-		}
-    const URL = "http://localhost:8081/"
+    }
     apiCall("post", `${URL}api/order/${this.props.currentUser.user.id}/new`, order)
       .then(res=>{
         if(res.customer){

@@ -15,6 +15,7 @@ import Houses from './Houses'
 import PostForm from '../components/PostForm'
 import OrderForm from '../components/OrderFrom'
 import ShowHouse from '../components/ShowHouse'
+import ShowUserHouse from '../components/ShowUserHouse'
 import User from './User'
 
 const Main = props => {
@@ -136,6 +137,21 @@ const Main = props => {
                             updateUserComments={ updateUserComments }
                             user = { user }
                             {...props}/>)
+                    }else{
+                        return (<Redirect to="/signin"/>)
+                    }
+                }}/>
+                <Route exact path="/user/:UserId/houses/:id" render={props=>{
+                    if(currentUser.user.id === props.match.params.UserId){
+                        return (
+                            <ShowUserHouse 
+                            search = { search }
+                            date= { date } 
+                            getHouse = { getHouse } 
+                            houses = { houses }
+                            clearSelect = { clearSelect }
+                            {...props}/>
+                        )
                     }else{
                         return (<Redirect to="/signin"/>)
                     }

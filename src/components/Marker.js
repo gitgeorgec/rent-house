@@ -4,7 +4,7 @@ import React, {Component} from 'react';
 export default class MyGreatPlaceWithHover extends Component {
 
   render() {
-    const K_SIZE= 40
+    const K_SIZE= 160
     const greatPlaceStyle = {
         // initially any map object has left top corner at lat lng coordinates
         // it's on you to set object origin to 0,0 coordinates
@@ -12,32 +12,34 @@ export default class MyGreatPlaceWithHover extends Component {
         width: K_SIZE,
         height: K_SIZE,
         left: -K_SIZE / 2,
-        top: -K_SIZE / 2,
+        top: -K_SIZE,
+        // left: "-50%",
+        // top: "-50%",
       
         border: '5px solid #f44336',
-        borderRadius: K_SIZE,
+        // borderRadius: K_SIZE,
         backgroundColor: 'white',
         textAlign: 'center',
         color: '#3f51b5',
-        fontSize: 16,
+        fontSize: 14,
         fontWeight: 'bold',
-        padding: 4,
+        padding: 2,
         cursor: 'pointer'
       };
       
-    const greatPlaceStyleHover = {
-        ...greatPlaceStyle,
-        border: '5px solid #3f51b5',
-        color: '#f44336'
-    };
-    const style = this.props.$hover ? greatPlaceStyleHover : greatPlaceStyle;
-
     return (
-       <div style={{position:"relative"}}>
+      <div style={{position:"relative"}} onClick={this.props.handle}>
+        
         <div className="pin1"></div>
-        {this.props.$hover?<div style={style}>hover</div>:null}
-          {this.props.text}
-       </div>
+        {this.props.$hover?
+        <div style={greatPlaceStyle}>
+          {this.props.name}
+          <div>
+            <img src={this.props.img} style={{width:"100%", height:"100%", maxHeight:"60px"}} alt=""/>
+          </div>
+        </div>
+        :null}
+      </div>
     );
   }
 }

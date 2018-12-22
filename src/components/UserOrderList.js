@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
-import { apiCall } from "../service/api"
+import { apiCall,URL } from "../service/api"
 import OrderCard from "../components/OrderCard"
 
 class OrderList extends Component{
 
     handleCancelOrder = (e) =>{
-        const URL = "http://localhost:8081/"
         apiCall("delete",`${URL}api/order/${this.props.currentUser.user.id}/${e.target.dataset.id}`)
         .then(res=>{
             if(res._id){

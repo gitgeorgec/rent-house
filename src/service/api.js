@@ -32,3 +32,6 @@ export function apiCall(method, path, data, token=defaultToken){
                 return res.json()
             })
 }
+
+// export const URL = "https://mighty-waters-27861.herokuapp.com/"
+export const URL = "http://localhost:8081/"

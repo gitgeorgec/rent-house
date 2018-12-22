@@ -1,12 +1,11 @@
 import React, { Component } from 'react'; 
-// import GoogleMap from './GoogleMap'
 import { connect } from 'react-redux'
 import { selectHouse, clearSelect } from '../store/actions/select'
 import GoogleMapReact from 'google-map-react';
 import Calender from './Calender'
 import Marker from './Marker'
 import UserCard from './UserCard'
-import { apiCall } from "../service/api"
+import { apiCall, URL } from "../service/api"
 import OrderForm from './OrderFrom'
 import CommentCard from './CommentCard'
 class ShowHouse extends Component {
@@ -18,7 +17,6 @@ class ShowHouse extends Component {
     }
 
     componentWillMount(){
-        const URL = "http://localhost:8081/"
         apiCall("get",`${URL}api/house/${this.props.match.params.id}`)
         .then((house)=>{
             this.setState({
@@ -69,6 +67,8 @@ class ShowHouse extends Component {
                                 <Marker
                                 lat={this.state.house.geometry.lat}
                                 lng={this.state.house.geometry.lng} 
+                                name={this.state.house.name}
+                                img={this.state.house.image}
                                 text={""}
                                 />
                             </GoogleMapReact>

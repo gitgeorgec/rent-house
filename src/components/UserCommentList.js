@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import CommentForm from "../components/CommentForm"
-import { apiCall } from "../service/api"
+import { apiCall, URL } from "../service/api"
 
 class UserCommentList extends Component{
     constructor(){
@@ -11,7 +11,6 @@ class UserCommentList extends Component{
     }
 
     handleRemoveComment=(e)=>{
-        const URL = "http://localhost:8081/"
         apiCall("delete",`${URL}api/comment/${this.props.currentUser.user.id}/${e.target.dataset.id}`)
         .then(res=>{
             if(res._id){
@@ -45,6 +44,7 @@ class UserCommentList extends Component{
                             <img className="card-img shadow" src={comment.house.image} alt=""/>
                         </div>
                         <div className="col-sm-8 col-6">
+                            <h4>{comment.house.name}</h4>
                             <h4>{comment.text}&nbsp;</h4>
                             <div className="m-2 p-1">
                                 <div className="btn btn-danger" data-id={comment._id} onClick={this.handleRemoveComment}>DELETE</div>

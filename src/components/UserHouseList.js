@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
-import { apiCall } from "../service/api"
+import { apiCall,URL } from "../service/api"
 
 class HouseList extends Component{
 
     handleRemoveHouse = (e) =>{
-        const URL = "http://localhost:8081/"
         apiCall("delete",`${URL}api/user/${this.props.currentUser.user.id}/house/${e.target.dataset.id}`)
         .then(res=>{
             if(res._id){
@@ -12,6 +11,10 @@ class HouseList extends Component{
                 this.props.updateUserHouses(houseData)
             }
         })
+    }
+
+    handleShowMore = (e) => {
+        window.open(`./user/${this.props.currentUser.user.id}/houses/${e.target.dataset.id}`)
     }
 
     render(){
@@ -27,7 +30,7 @@ class HouseList extends Component{
                         Address: {house.address} <br/>
                         Price: ${house.price}
                         <div className="m-2 p-1">
-                            <div className="btn btn-info" data-id={house._id} >SHOW MORE</div>
+                            <div className="btn btn-info" data-id={house._id} onClick={this.handleShowMore}>SHOW MORE</div>
                             {/* <div className="btn btn-danger" data-id={house._id} onClick={this.handleRemoveHouse}>DELETE</div> */}
                         </div>
                     </div>

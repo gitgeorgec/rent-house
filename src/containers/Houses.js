@@ -72,7 +72,9 @@ class Houses extends Component {
                       <Marker
                       key={house._id}
                       lat={house.geometry.lat}
-                      lng={house.geometry.lng} 
+                      lng={house.geometry.lng}
+                      name={house.name}
+                      img={house.image}
                       text={""}
                       />
                       )
