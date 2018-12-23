@@ -15,41 +15,41 @@ class Dropdown extends Component {
         <div className="collapse navbar-collapse justify-content-end" id="Dropdown">
             <ul className="navbar-nav" style={{color:"#fff"}}>
                     <li className="nav-item" style={{marginLeft:"1rem"}}>
-                        <NavLink exact className="nav-link" to="/houses">
+                        <NavLink exact className="nav-link" to={process.env.PUBLIC_URL+"/houses"}>
                         <i className="fas fa-search"></i> search
                         </NavLink>
                     </li>
                     {/* <li className="nav-item" style={{marginLeft:"1rem"}}>
-                        <NavLink exact className="nav-link" to="/about">
+                        <NavLink exact className="nav-link" to=process.env.PUBLIC_URL+"/about">
                         <i className="fas fa-book"></i> About
                         </NavLink>
                     </li> */}
                 {this.props.currentUser.isAuthenticated?
                 <React.Fragment>
                     <li className="nav-item" style={{marginLeft:"1rem"}}>
-                        <NavLink exact className="nav-link" to={`/${this.props.currentUser.user.id}/house/new`}>
+                        <NavLink exact className="nav-link" to={process.env.PUBLIC_URL+`/${this.props.currentUser.user.id}/house/new`}>
                         <i className="fas fa-home"></i> Land
                         </NavLink>
                     </li>
                     <li className="nav-item" style={{marginLeft:"1rem"}}>
-                        <NavLink exact className="nav-link" to="/user">
+                        <NavLink exact className="nav-link" to={process.env.PUBLIC_URL+"/user"}>
                         <i className="fas fa-user"></i> User
                         </NavLink>
                     </li>
                     <li className="nav-item" style={{marginLeft:"1rem"}}>
-                        <Link className="nav-link" to="/" onClick={this.handleLogout.bind(this)}>
+                        <Link className="nav-link" to={process.env.PUBLIC_URL+"/"} onClick={this.handleLogout.bind(this)}>
                         <i className="fas fa-sign-out-alt"></i> Log Out
                         </Link>
                     </li>
                 </React.Fragment>:
                 <React.Fragment>
                     <li className="nav-item" style={{marginLeft:"1rem"}}>
-                        <NavLink exact className="nav-link" to="/signup">
+                        <NavLink exact className="nav-link" to={process.env.PUBLIC_URL+"/signup"}>
                         <i className="fas fa-book"></i> signup
                         </NavLink>
                     </li>
                     <li className="nav-item" style={{marginLeft:"1rem"}}>
-                        <NavLink exact className="nav-link" to="/signin">
+                        <NavLink exact className="nav-link" to={process.env.PUBLIC_URL+"/signin"}>
                         <i className="fas fa-book"></i> signin
                         </NavLink>
                     </li>

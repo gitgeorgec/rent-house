@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class Card extends Component {
     
     handleClick=()=>{
-        window.open("./houses/"+this.props.house._id)
+        window.open(process.env.PUBLIC_URL+"/houses/"+this.props.house._id)
     }
 
     render(){

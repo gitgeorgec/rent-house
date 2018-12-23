@@ -43,9 +43,9 @@ const Main = props => {
         <React.Fragment>
             <Header  currentUser ={ currentUser }/>
             <Switch>
-                <Route exact path="/rent-house" render={() => (<Redirect to="/"/>)} />    
-                <Route exact path="/" render={props=><Index {...props}/>}/>
-                <Route exact path="/houses" render={props=>{
+                <Route exact path={process.env.PUBLIC_URL+"/rent-house"} render={() => (<Redirect to="/"/>)} />    
+                <Route exact path={process.env.PUBLIC_URL+"/"} render={props=><Index {...props}/>}/>
+                <Route exact path={process.env.PUBLIC_URL+"/houses"} render={props=>{
                     return (
                         <Houses 
                         search = { search }
@@ -56,7 +56,7 @@ const Main = props => {
                         {...props}/>
                     )
                 }}/>
-                <Route exact path="/houses/:id" render={props=>{
+                <Route exact path={process.env.PUBLIC_URL+"/houses/:id"} render={props=>{
                     return (
                         <ShowHouse 
                         search = { search }
@@ -67,7 +67,7 @@ const Main = props => {
                         {...props}/>
                     )
                 }}/>
-                <Route exact path="/:id/house/new" render={props=>{
+                <Route exact path={process.env.PUBLIC_URL+"/:id/house/new"} render={props=>{
                     if(currentUser.isAuthenticated){
                         return (
                             <PostForm date={date} 
@@ -83,7 +83,7 @@ const Main = props => {
                         return (<Redirect to="/signin"/>)
                     }
                 }}/>
-                <Route exact path="/signin" render={props=>{
+                <Route exact path={process.env.PUBLIC_URL+"/signin"} render={props=>{
                     return (
                         <AuthForm removeError={ removeError } 
                         errors={ errors } 
@@ -93,7 +93,7 @@ const Main = props => {
                         heading="Welcome Back." {...props}/>
                     )
                 }} />
-                <Route exact path="/signup" render={props=>{
+                <Route exact path={process.env.PUBLIC_URL+"/signup"} render={props=>{
                     return (
                         <AuthForm  removeError={ removeError } 
                         errors={ errors } 
@@ -104,7 +104,7 @@ const Main = props => {
                         signUp {...props}/>
                     )
                 }} />
-                <Route exact path="/houses/order/:id" render={props=>{
+                <Route exact path={process.env.PUBLIC_URL+"/houses/order/:id"} render={props=>{
                     if(currentUser.isAuthenticated){
                         if(select.name){
                             return (
@@ -126,7 +126,7 @@ const Main = props => {
                         return (<Redirect to="/signin"/>)
                     }
                 }} /> 
-                <Route exact path="/user" render={props=>{
+                <Route exact path={process.env.PUBLIC_URL+"/user"} render={props=>{
                     if(currentUser.isAuthenticated){
                         return (<User
                             currentUser={ currentUser }
@@ -141,7 +141,7 @@ const Main = props => {
                         return (<Redirect to="/signin"/>)
                     }
                 }}/>
-                <Route exact path="/user/:UserId/houses/:id" render={props=>{
+                <Route exact path={process.env.PUBLIC_URL+"/user/:UserId/houses/:id"} render={props=>{
                     if(currentUser.user.id === props.match.params.UserId){
                         return (
                             <ShowUserHouse 
