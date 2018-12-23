@@ -1,25 +1,28 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
 
 class Card extends Component {
     
-    handleClick=()=>{
-        window.open(process.env.PUBLIC_URL+"/houses/"+this.props.house._id)
-    }
+    // handleClick=()=>{
+    //     window.open(process.env.PUBLIC_URL+"/houses/"+this.props.house._id)
+    // }
 
     render(){
         return (
-            <div className="card border shadow" onClick={this.handleClick} >
-                <div className="card-background" style={{backgroundImage:"url(" + this.props.house.image + ")"}}>
-                    <img className="card-img-top" src={this.props.house.image}  style={{opacity:0}} alt=""/>
+            <Link to={process.env.PUBLIC_URL+"/houses/"+this.props.house._id} target="_blank">
+                <div className="card border shadow" onClick={this.handleClick} >
+                    <div className="card-background" style={{backgroundImage:"url(" + this.props.house.image + ")"}}>
+                        <img className="card-img-top" src={this.props.house.image}  style={{opacity:0}} alt=""/>
+                    </div>
+                    <div className="card-body">
+                    <h4 className="card-title text-center" style={{fontWeight:"bolder"}}>{this.props.house.name}</h4>
+                    <ul className="list-group list-group-flush">
+                        <li className="list-group-item">Address: {this.props.house.address}</li>
+                        <li className="list-group-item">Price: {this.props.house.price}</li>
+                    </ul>
+                    </div>
                 </div>
-                <div className="card-body">
-                <h4 className="card-title text-center" style={{fontWeight:"bolder"}}>{this.props.house.name}</h4>
-                <ul className="list-group list-group-flush">
-                    <li className="list-group-item">Address: {this.props.house.address}</li>
-                    <li className="list-group-item">Price: {this.props.house.price}</li>
-                </ul>
-                </div>
-            </div>
+            </Link>
         )
     }
 }

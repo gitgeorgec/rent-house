@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { apiCall,URL } from "../service/api"
+import { Link } from 'react-router-dom'
 
 class HouseList extends Component{
 
@@ -13,9 +14,9 @@ class HouseList extends Component{
         })
     }
 
-    handleShowMore = (e) => {
-        window.open(`./user/${this.props.currentUser.user.id}/houses/${e.target.dataset.id}`)
-    }
+    // handleShowMore = (e) => {
+    //     window.open(`./user/${this.props.currentUser.user.id}/houses/${e.target.dataset.id}`)
+    // }
 
     render(){
         return this.props.houses.map(house=>{
@@ -30,7 +31,9 @@ class HouseList extends Component{
                         Address: {house.address} <br/>
                         Price: ${house.price}
                         <div className="m-2 p-1">
-                            <div className="btn btn-info" data-id={house._id} onClick={this.handleShowMore}>SHOW MORE</div>
+                        <Link to={`${process.env.PUBLIC_URL}/user/${this.props.currentUser.user.id}/houses/${house._id}`} target="_blank">
+                            <div className="btn btn-info">SHOW MORE</div>
+                        </Link>
                             {/* <div className="btn btn-danger" data-id={house._id} onClick={this.handleRemoveHouse}>DELETE</div> */}
                         </div>
                     </div>

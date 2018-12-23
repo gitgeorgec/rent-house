@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Main from './Main'
 import { Provider} from 'react-redux'
 import store from "../store"
-import { BrowserRouter as Router } from "react-router-dom"
+import { HashRouter as Router } from "react-router-dom"
 import { setAuthorizationToken, setCurrentUser, checkAuth } from "../store/actions/auth"
 import jwtDecode from "jwt-decode"
 
