@@ -1,10 +1,10 @@
 self.__precacheManifest = [
   {
-    "revision": "2ebb3a7c51dc74d4cf5492843f162b5a",
-    "url": "/rent-house/static/media/douglas-sheppard-522206-unsplash.2ebb3a7c.jpg"
+    "revision": "1b70a2777c7f9ba5de3961fc78f78ef1",
+    "url": "/rent-house/static/media/henry-co-1047241-unsplash.1b70a277.jpg"
   },
   {
-    "revision": "a68f7127ff539ae3ac08",
+    "revision": "98ec02cee8d0991f79ae",
     "url": "/rent-house/static/css/main.61c00907.chunk.css"
   },
   {
@@ -20,12 +20,12 @@ self.__precacheManifest = [
     "url": "/rent-house/static/media/dan-gold-220226-unsplash.bb48ec2d.jpg"
   },
   {
-    "revision": "1b70a2777c7f9ba5de3961fc78f78ef1",
-    "url": "/rent-house/static/media/henry-co-1047241-unsplash.1b70a277.jpg"
+    "revision": "2ebb3a7c51dc74d4cf5492843f162b5a",
+    "url": "/rent-house/static/media/douglas-sheppard-522206-unsplash.2ebb3a7c.jpg"
   },
   {
-    "revision": "a68f7127ff539ae3ac08",
-    "url": "/rent-house/static/js/main.a68f7127.chunk.js"
+    "revision": "98ec02cee8d0991f79ae",
+    "url": "/rent-house/static/js/main.98ec02ce.chunk.js"
   },
   {
     "revision": "6ecfe967bbffc8c269d8903fca790f7c",
@@ -48,7 +48,7 @@ self.__precacheManifest = [
     "url": "/rent-house/static/media/remi-yuan-569408-unsplash.b1c181cf.jpg"
   },
   {
-    "revision": "95946dc3175a4ce2e8b560ba43883368",
+    "revision": "b80ed4bff7abdb19a12af456aa2846b7",
     "url": "/rent-house/index.html"
   }
 ];
