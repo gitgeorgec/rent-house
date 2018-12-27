@@ -22,10 +22,10 @@ const Index = () => {
 						<Card img={TaipeiImg} title="Taipei" geometry={TaipeiGeo}/>
 					</div>
 				</div>
-				<div className="container mx-auto position-relative shadow">
+				{/* <div className="container mx-auto position-relative shadow">
 					<h1 className="mt-3 m-3 p-2">Recent Comment</h1>
 					
-				</div>
+				</div> */}
 				<br />				
 				<br />
 			</div>

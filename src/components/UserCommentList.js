@@ -6,7 +6,7 @@ class UserCommentList extends Component{
     constructor(){
         super()
         this.state={
-            show:false
+            show:""
         }
     }
 
@@ -28,9 +28,9 @@ class UserCommentList extends Component{
         })
     }
 
-    handleShowCommetFrom=()=>{
+    handleShowCommetFrom=(e)=>{
         this.setState({
-            show:!this.state.show
+            show:e.target.dataset.id
         })
     }
 
@@ -71,7 +71,7 @@ class UserCommentList extends Component{
                                 <div className="m-2 p-1">
                                     from : {begin} afternoon to {end} morning
                                 </div>
-                                {!this.state.show && <div className="btn btn-success" onClick={this.handleShowCommetFrom}>comment</div>}
+                                {this.state.show!==order._id && <div className="btn btn-success" data-id={order._id} onClick={this.handleShowCommetFrom}>comment</div>}
                             </div>
                             <div className="col-12 row mx-auto" style={{width:"100%"}}>
                                 <CommentForm 

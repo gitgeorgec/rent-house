@@ -1,6 +1,8 @@
 import React, { Component } from 'react'; 
 import { connect } from 'react-redux'
 import { selectHouse, clearSelect } from '../store/actions/select'
+import { sendSearch } from '../store/actions/search'
+import { setDate } from '../store/actions/date'
 import GoogleMapReact from 'google-map-react';
 import Calender from './Calender'
 import Marker from './Marker'
@@ -86,7 +88,7 @@ class ShowHouse extends Component {
                         <h3>comments</h3><hr/>
                         {this.state.house.comments.map(comment=>{
                             return(
-                                <CommentCard key={comment.id} comment ={ comment }/>
+                                <CommentCard key={comment._id} comment ={ comment }/>
                             )
                         })}
                     </div>
@@ -123,4 +125,4 @@ function mapStateToProps(state) {
 	}
 }
 
-export default connect(mapStateToProps,{ clearSelect, selectHouse })(ShowHouse)
+export default connect(mapStateToProps,{ clearSelect, selectHouse, sendSearch,setDate })(ShowHouse)

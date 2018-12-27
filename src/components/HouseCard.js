@@ -4,12 +4,12 @@ import { Link } from 'react-router-dom'
 class Card extends Component {
     
     // handleClick=()=>{
-    //     window.open(process.env.PUBLIC_URL+"/houses/"+this.props.house._id)
+    //     window.open("/houses/"+this.props.house._id)
     // }
 
     render(){
         return (
-            <Link to={process.env.PUBLIC_URL+"/houses/"+this.props.house._id} target="_blank">
+            <Link to={"/houses/"+this.props.house._id} target="_blank">
                 <div className="card border shadow" onClick={this.handleClick} >
                     <div className="card-background" style={{backgroundImage:"url(" + this.props.house.image + ")"}}>
                         <img className="card-img-top" src={this.props.house.image}  style={{opacity:0}} alt=""/>
