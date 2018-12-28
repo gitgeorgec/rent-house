@@ -1,7 +1,7 @@
 {
   "main.css": "/rent-house/static/css/main.61c00907.chunk.css",
-  "main.js": "/rent-house/static/js/main.85d2d611.chunk.js",
-  "main.js.map": "/rent-house/static/js/main.85d2d611.chunk.js.map",
+  "main.js": "/rent-house/static/js/main.1d46fa64.chunk.js",
+  "main.js.map": "/rent-house/static/js/main.1d46fa64.chunk.js.map",
   "static/js/1.621ea17e.chunk.js": "/rent-house/static/js/1.621ea17e.chunk.js",
   "static/js/1.621ea17e.chunk.js.map": "/rent-house/static/js/1.621ea17e.chunk.js.map",
   "runtime~main.js": "/rent-house/static/js/runtime~main.6e49e162.js",
@@ -12,6 +12,6 @@
   "static/media/remi-yuan-569408-unsplash.jpg": "/rent-house/static/media/remi-yuan-569408-unsplash.b1c181cf.jpg",
   "static/css/main.61c00907.chunk.css.map": "/rent-house/static/css/main.61c00907.chunk.css.map",
   "index.html": "/rent-house/index.html",
-  "precache-manifest.c2d93f1dcc8aad034004fb5c748fbcf2.js": "/rent-house/precache-manifest.c2d93f1dcc8aad034004fb5c748fbcf2.js",
+  "precache-manifest.fd55b9dbae6204d7aa8ebe3b8b99f1aa.js": "/rent-house/precache-manifest.fd55b9dbae6204d7aa8ebe3b8b99f1aa.js",
   "service-worker.js": "/rent-house/service-worker.js"
 }
