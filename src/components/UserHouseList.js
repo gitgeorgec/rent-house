@@ -31,7 +31,7 @@ class HouseList extends Component{
                         Address: {house.address} <br/>
                         Price: ${house.price}
                         <div className="m-2 p-1">
-                        <Link to={`${process.env.PUBLIC_URL}/user/${this.props.currentUser.user.id}/houses/${house._id}`} target="_blank">
+                        <Link to={`/user/${this.props.currentUser.user.id}/houses/${house._id}`} target="_blank">
                             <div className="btn btn-info">SHOW MORE</div>
                         </Link>
                             {/* <div className="btn btn-danger" data-id={house._id} onClick={this.handleRemoveHouse}>DELETE</div> */}
