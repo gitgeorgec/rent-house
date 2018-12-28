@@ -55,7 +55,7 @@ class ShowHouse extends Component {
                     <div className="col-md-6">
                         <div style={{width:'100%', minHeight:"300px", height:"100%"}}>
                             <GoogleMapReact
-                            // bootstrapURLKeys={{ key:"AIzaSyAjQDTCdLCWo2JBZiosUYNEox7R92t_Ts4"}}
+                            bootstrapURLKeys={{ key:"AIzaSyAjQDTCdLCWo2JBZiosUYNEox7R92t_Ts4"}}
                             // defaultCenter={{
                             //     lat: 25.0171194,
                             //     lng: 121.4710123

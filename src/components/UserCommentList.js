@@ -59,7 +59,7 @@ class UserCommentList extends Component{
                 let begin = `${firstDay.getFullYear()}-${firstDay.getMonth()+1}-${firstDay.getDate()}`
                 let end = `${lastDay.getFullYear()}-${lastDay.getMonth()+1}-${lastDay.getDate()}`
                 let today = new Date()
-                if(!order.rank&& today>lastDay){
+                if(!order.rank&& today>lastDay&& order.house){
                     return (
                     <div key={order._id} className="col-12">
                         <div className="row m-1 pt-2 pb-2 border rounded">

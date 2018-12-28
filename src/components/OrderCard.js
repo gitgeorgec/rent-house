@@ -50,7 +50,7 @@ class Orderpage extends Component{
                 </div>
                 <div className={this.state.show?"col-md-6 col-12":""} style={{maxHeight:"50vh",minHeight:"200px"}}>
                 <GoogleMapReact
-                  // bootstrapURLKeys={{ key:"AIzaSyAjQDTCdLCWo2JBZiosUYNEox7R92t_Ts4"}}
+                  bootstrapURLKeys={{ key:"AIzaSyAjQDTCdLCWo2JBZiosUYNEox7R92t_Ts4"}}
                   center={
                   this.props.order.house.geometry
                   }

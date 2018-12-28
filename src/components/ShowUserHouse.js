@@ -85,6 +85,7 @@ class ShowHouse extends Component {
                             })}
                             <div style={{width:'100%', minHeight:"300px", height:"100%", maxHeight:"600px"}}>
                                 <GoogleMapReact
+                                bootstrapURLKeys={{ key:"AIzaSyAjQDTCdLCWo2JBZiosUYNEox7R92t_Ts4"}}
                                 center={
                                     this.state.house.geometry
                                 }
