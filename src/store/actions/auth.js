@@ -1,8 +1,7 @@
 import { apiCall, setDefaultToken, URL} from "../../service/api"
-import { SET_CURRENT_USER } from  "../actionTypes" 
+import { SET_CURRENT_USER } from  "../actionTypes"
 import { addError, removeError } from './errors'
-// // const URL = "https://mighty-waters-27861.herokuapp.com/"
-// const URL = "http://localhost:8081/"
+
 export function setCurrentUser(user){
     return {
         type: SET_CURRENT_USER,

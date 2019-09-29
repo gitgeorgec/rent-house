@@ -1,8 +1,6 @@
 import { apiCall,URL } from "../../service/api"
 import { addError } from "./errors"
 import { LOAD_HOUSES, LOADING } from "../actionTypes"
-// const URL = "https://mighty-waters-27861.herokuapp.com/"
-// const URL = "http://localhost:8081/"
 
 export const loadHosues = houses =>({
     type:LOAD_HOUSES,

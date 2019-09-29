@@ -1,4 +1,4 @@
-import React, { Component } from 'react'; 
+import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { selectHouse, clearSelect } from '../store/actions/select'
 import { sendSearch } from '../store/actions/search'
@@ -56,19 +56,13 @@ class ShowHouse extends Component {
                         <div style={{width:'100%', minHeight:"300px", height:"100%"}}>
                             <GoogleMapReact
                             bootstrapURLKeys={{ key:"AIzaSyAjQDTCdLCWo2JBZiosUYNEox7R92t_Ts4"}}
-                            // defaultCenter={{
-                            //     lat: 25.0171194,
-                            //     lng: 121.4710123
-                            // }}
                             center={
-                            // this.state.house.name?
                             this.state.house.geometry
-                            // :{lat: 22.0171194,lng: 123.4710123}
                             }
                             defaultZoom={17}>
                                 <Marker
                                 lat={this.state.house.geometry.lat}
-                                lng={this.state.house.geometry.lng} 
+                                lng={this.state.house.geometry.lng}
                                 name={this.state.house.name}
                                 img={this.state.house.image}
                                 text={""}
@@ -99,12 +93,12 @@ class ShowHouse extends Component {
                         <button className="btn btn-success m-3 rounded" style={{width:"100%", fontSize:"1.2rem", fontWeight:"bolder"}} onClick={this.handleOrder}>Reserve (price:{this.state.house.price} /night)</button>
                     <div style={{
                         position:"fixed",
-                        zIndex:this.props.select.name?"200":"-1", 
+                        zIndex:this.props.select.name?"200":"-1",
                         background:"rgba(0,0,0,0.5)",
                         transition:"0.3s",
                         width:"100vw",
                         height:this.props.select.name?"100vh":0,
-                        opacity:this.props.select.name?1:0, 
+                        opacity:this.props.select.name?1:0,
                         top:0,
                         left:0,
                         overflow:"scroll"}}
